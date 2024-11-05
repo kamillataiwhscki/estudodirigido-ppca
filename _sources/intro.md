@@ -13,11 +13,13 @@ Este conjunto de Jupyter Book reúne, de forma simplificada, conceitos de classi
 
 <!-- Os capítulos contém, de forma resumida, trechos do livro "Reconhecimento de Padrões - Um estudo dirigido", do autor Rogério Galante Negri. -->
 
-O objetivo deste trabalho é documentar, estudar e exercitar os principais conceitos por trás dos algoritmos utilizados para o reconhecimento de padrões 
+O objetivo deste trabalho é documentar, estudar e exercitar os principais conceitos por trás dos algoritmos utilizados para o reconhecimento de padrões, na busca de dominar os conceitos teóricos e aplicá-los na prática.  
 
-presentes em bibliotecas como a Scikit Learn. Os exemplos apresentados são desenvolvidos em python utilizando, principalmente, a biblioteca Scikit Learn.
+Este conjunto é uma continuação do estudo dirigido realizado por Vitor Jorge e pode ser acessado no seguinte link: https://vitorjorge20.github.io/Jupyter-Book/introduction.html
 
-O capítulo 1 apresenta uma breve discussão sobre a teoria da decisão de Bayes; O capítulo 2 descreve os principais conceitos dos classificadores lineares e alguns exemplos; O Capítulo 3 apresenta o comportamento de alguns classificadores não lineares; O Capítulo 4 descreve algumas estratégias de aprendizado em conjunto. O Capítulo 5 apresenta alguns exemplos dos algoritmos descritos nos capítulos anteriores.
+Meu objetivo nessa continuação é realizar complementações ao que ele já havia criado.
+
+O capítulo 1 apresenta uma breve discussão sobre a teoria da decisão de Bayes, seguindo pelas subseções do capítulo e a resolução dos exercícios computacionais propostos. 
 
 
 ```{tableofcontents}

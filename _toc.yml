@@ -1,0 +1,14 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+chapters:
+- file: Chapter_1/1_0_bayes
+  sections:
+    - file: Chapter_1/1_1_classificacao_MAP_ML
+    - file: Chapter_1/1_2_naive-bayes
+    - file: Chapter_1/1_3_discriminantes
+    - file: Chapter_1/1_4_minima-distancia
+    - file: Chapter_1/1_5_densidade-probabilidade
+    - file: Chapter_1/1_6_exercicios

@@ -1,0 +1,640 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>2.5: Estimação de funções densidade de probabilidade &#8212; Reconhecimento de Padrões</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Chapter_1/2_5_densidade-probabilidade';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="2.4: Classificação por mínima distância (casos particulares)" href="2_4_minima-distancia.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../introduction.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logobg.png" class="logo__image only-light" alt="Reconhecimento de Padrões - Home"/>
+    <img src="../_static/logobg.png" class="logo__image only-dark pst-js-only" alt="Reconhecimento de Padrões - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../introduction.html">
+                    Apresentação
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2_0_bayes.html">Capítulo 1: Teoria da decisão de Bayes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2_1_classificacao_MAP_ML.html">2.1: Classificação MAP e ML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2_2_naive-bayes.html">2.2: Naive Bayes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2_3_discriminantes.html">2.3: Funções discriminantes e superfíceies de decisão</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2_4_minima-distancia.html">2.4: Classificação por mínima distância (casos particulares)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">2.5: Estimação de funções densidade de probabilidade</a></li>
+
+
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FChapter_1/2_5_densidade-probabilidade.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/Chapter_1/2_5_densidade-probabilidade.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>2.5: Estimação de funções densidade de probabilidade</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">2.5: Estimação de funções densidade de probabilidade</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#o-conceito-da-estimacao-por-maxima-verossimilhanca">2.5.1: O conceito da estimação por máxima verossimilhança</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-ed-mistura-de-gaussianas-e-o-algoritmo-em">2.5.2 Modelo ed mistura de gaussianas e o algoritmo EM</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#metodo-do-histograma">2.5.3 Método do histograma</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#janelas-de-parzen">2.5.4 Janelas de Parzen</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#k-vizinhos-mais-proximos">2.5.5 <span class="math notranslate nohighlight">\(K\)</span>-vizinhos mais próximos</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <style>
+    legend {
+        font-size: 16px;
+    }
+    main {
+        text-align: justify;
+    }
+</style>
+<section class="tex2jax_ignore mathjax_ignore" id="estimacao-de-funcoes-densidade-de-probabilidade">
+<h1>2.5: Estimação de funções densidade de probabilidade<a class="headerlink" href="#estimacao-de-funcoes-densidade-de-probabilidade" title="Link to this heading">#</a></h1>
+<p>A função de densidade de probabilidade (denominada anteriormente de função de verossimilhança) deve ser empregada de acordo com o comportamento (ou suposição deste) dos dados a serem classificados ou mesmo a partir de uma exigência imposta para formalização do método de classificação.</p>
+<p>Na possibilidade do emprego de um modelo de distribuição específica, o ajuste deste modelo ao problema específico se dá através da escolha dos parâmetros. Dentre as diferentes técnicas existentes para a obtenção de tais parâmetros, a estimação por <span class="math notranslate nohighlight">\(\textit{máxima verossimilhança}\)</span> é uma alternativa, sendo possível, através dela, obter expressões para os estimadores dos parâmetros de uma dada distribuição de probabilidade a partir do seu modelo.</p>
+<p>No entando em casos de distribuições conhecidas gerarem violações e/ou considerações irreais a respeito de dados, pode-se utilizar “misturas” entre distribuições de probabilidade conhecidas ou mesmoe stimar a distribuição de probabilidade sem suposição sobre um dado modelo e a respectiva parametrização.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="o-conceito-da-estimacao-por-maxima-verossimilhanca">
+<h1>2.5.1: O conceito da estimação por máxima verossimilhança<a class="headerlink" href="#o-conceito-da-estimacao-por-maxima-verossimilhanca" title="Link to this heading">#</a></h1>
+<p>A função de verossimilhança é representada por <span class="math notranslate nohighlight">\(\textit{p}(\textbf{x}|w_{i})\)</span>, sendo a função dos padrões <span class="math notranslate nohighlight">\(\textbf{x}\)</span> em relação à classe <span class="math notranslate nohighlight">\(w_{i}\)</span>, isso corresponte a uma distribuição de probabilidade que modela o comportamento de <span class="math notranslate nohighlight">\(\textbf{x}|w_{i}\)</span>. Por sua vez, tal distribuição pode ser expressa como <span class="math notranslate nohighlight">\(\textit{p}(\textbf{x}|\theta_{1}, \ldots, \theta_k)\)</span>, em que <span class="math notranslate nohighlight">\(\theta_{1},\ldots, \theta_k\)</span> são parâmetros que tornam a distribuição de probabilidade em questão aderente ao comportamento de <span class="math notranslate nohighlight">\(w_{i}\)</span></p>
+<p>Nas condições apresentadoas, a problemática reside em determinar os valores <span class="math notranslate nohighlight">\(\theta_{1},\ldots, \theta_k\)</span> que tornam <span class="math notranslate nohighlight">\(\textit{p}(\textbf{x}|\theta_{1}, \ldots, \theta_k)\)</span> ajustada à realidade de <span class="math notranslate nohighlight">\(w_{i}\)</span>. Segundo Fisher (1992) os parâmetros ótimos que modelam <span class="math notranslate nohighlight">\(\textit{p}(\textbf{x}|\theta_{1}, \ldots, \theta_k)\)</span>, de acordo com um conjunto de observações <span class="math notranslate nohighlight">\(D = \{x_1, \ldots, x_m\}\)</span>, correspondem aos mesmos parâmetros que maximizam a seguinte função:</p>
+<div align="center">
+$\begin{equation}
+    L(\theta_i | D) = p(\theta_i | x_1) p(\theta_i | x_2) \ldots p(\theta_i | x_m) = \prod_{j=1}^{m} p(x_j | \theta_i) \tag{2.21}
+\end{equation}$ </div>
+<p>equivalentemente:</p>
+<div align="center">
+$\begin{equation}
+    \hat{\theta}_i = \underset{\theta_i \in \Theta}{\arg \max} \prod_{j=1}^{m} p(x_j | \theta_i) \tag{2.22}
+\end{equation}$ </div>
+<p>A fim de viabilizar o desenvolvimento matemático, a função de verossimilhança é substituída pelo seu logarítmo natural, uma vez que ambas as formas compartilham o mesmo ponto máximo, visto que o <span class="math notranslate nohighlight">\(\ln(\cdot)\)</span> é uma função monotônica estritamente crescente. Utilizando a regra da cadeia, importante ferramenta do Cálculo Diferencial, é possível resolver o problema de maximização apresentado anteriomente pelo valor de <span class="math notranslate nohighlight">\(\theta_i\)</span>, que anula a derivada <span class="math notranslate nohighlight">\(L(\theta_i | D)\)</span> com relação a este mesmo parâmetro, ou seja:</p>
+<div align="center">
+$\begin{equation}
+   \hat{\theta}_i = \frac{\partial \ln(L(\theta_i | D))}{\partial \theta_i} \Bigg|_{\theta_1, \ldots, \theta_k} = 0 \tag{2.23}
+\end{equation}$ </div>
+<p>Sabendo que <span class="math notranslate nohighlight">\(\ln(L(\theta_i | D)) = \ln(L(\theta_i | D)) = \sum_{j=1}^{m} \ln(p(x_j | \theta_i))\)</span>, têm-se:</p>
+<div align="center">
+$\begin{equation}
+    \frac{\partial \ln(L(\theta_i | D))}{\partial \theta_i} = \sum_{j=1}^{m} \frac{\partial \ln(p(x_j | \theta_i))}{\partial \theta_i} = \sum_{j=1}^{m} \frac{1}{p(x_j | \theta_i)} \frac{\partial p(x_j | \theta_i)}{\partial \theta_i} \tag{2.24}
+\end{equation}$ </div>
+<p>Desse modo, cada <span class="math notranslate nohighlight">\(\hat{\theta}_i\)</span>, para <span class="math notranslate nohighlight">\(i = 1, \ldots, k\)</span>, a ser escolhido deve anilar o lado direito da Equação 2.24. Segundo Mood et al. (1974, caput Negri (2021)), ao passo que o número de observações em <span class="math notranslate nohighlight">\(D\)</span> aumenta, o estimado de máxima verossimilhança gera uma aproximação assintótica, ou seja, cada vez mais próxima, ao parâmetro verdadeiro.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="modelo-ed-mistura-de-gaussianas-e-o-algoritmo-em">
+<h1>2.5.2 Modelo ed mistura de gaussianas e o algoritmo EM<a class="headerlink" href="#modelo-ed-mistura-de-gaussianas-e-o-algoritmo-em" title="Link to this heading">#</a></h1>
+<p>Combinações de diferentes distribuições de probabilidade conhecidas dão origem a novas distribuições de probabilidade. Nesse contexto, o chamado modelo de mistura expressa a modelagem de uma distribuição <span class="math notranslate nohighlight">\(p(\textbf{x})\)</span> como resultado da combinação linear entre funções de densidade de probabilidade. Dessa forma:</p>
+<div align="center">
+$\begin{equation}
+   p(x) = \sum_{j=1}^{k} \lambda_j p(x | \theta_j) \quad 
+   \text{com} \quad \sum_{j=1}^{k} \lambda_j = 1; \quad \int_{x \in X} p(x | \theta_j) \, dx = 1 \tag{2.25}
+\end{equation}$ </div>
+<p>em que <span class="math notranslate nohighlight">\(\theta_j\)</span> corresponde a uma tupla de parâmetros exigidos pela <span class="math notranslate nohighlight">\(j\)</span>-ésima componente. A combinação apresentada na Equação 2.25 envolve <span class="math notranslate nohighlight">\(k\)</span> distribuições <span class="math notranslate nohighlight">\(\textit{p}(\textbf{x}|\theta_j)\)</span> podenradas pelos respectivos <span class="math notranslate nohighlight">\(\lambda_j \in [0,1]\)</span>, com <span class="math notranslate nohighlight">\(j = 1,\ldots, k\)</span>, sendo possível observar a condição <span class="math notranslate nohighlight">\(\int_{x \in X} p(x | \theta_j) \, dx\)</span> é atendida, visto que as diferentes componentes atendem a tal condição e a ponderação efetuada por  <span class="math notranslate nohighlight">\(\lambda_j\)</span> não provoca contração ou expansão do intervalo <span class="math notranslate nohighlight">\([0,1]\)</span>.</p>
+<p>Um modelo de mistura é capaz de aproximar qualquer distribuição desde que seja considerada uma quantidade <span class="math notranslate nohighlight">\(k\)</span> adequada de componente devidamente parametrizadas e ponderadas. Nesse sentido, o espaço de parâmetros que contém a solução do problema proposto possui como elementos tuplas da forma <span class="math notranslate nohighlight">\(\Psi = (\lambda_{1}, \ldots, \lambda_k, \theta_{1}, \ldots, \theta_k)\)</span>.</p>
+<p>De modo a colocar o método da máxima verossimilhança em ação e obter a estimação dos parâmetro, o problema seria reduzido à maximização da função <span class="math notranslate nohighlight">\(L(\Psi) = \prod_{i=1}^{m} \sum_{j=1}^{k} \lambda_j p(x_i; \theta_j)\)</span>. No entando, a não linearidade deste problema não permite que o ponto seja obtido atravás da derivada de <span class="math notranslate nohighlight">\(L(\Psi)\)</span> utilizando a regra da cadeia. Como alternativa, é feito o uso de um processo iterativo chamado <span class="math notranslate nohighlight">\(\textit{Expectation-Maximization}\)</span> (EM).</p>
+<p>Considerando a Equação 2.25, têm-se:</p>
+<div align="center">
+$\begin{equation}
+    p(x | \Psi) = \sum_{j=1}^{k} \lambda_j p_j(x | y, \theta_j) \tag{2.26}
+\end{equation}$ </div>
+<p>em que <span class="math notranslate nohighlight">\(p_j(x | y, \theta_j)\)</span> é uma das <span class="math notranslate nohighlight">\(k\)</span> componentes da mistura com parâmetro <span class="math notranslate nohighlight">\(\theta_j\)</span>; e <span class="math notranslate nohighlight">\(y=[y_{1},\ldots,y_{k}]\)</span> compreende um vetor binário, tal que apenas uma das componentes equivale a 1 e as demais são nulas, cuja finalidade é identificar as componentes da mistura responsáveis por gerar <span class="math notranslate nohighlight">\(\textbf{x}\)</span>. Sobre os pesos que podenram a mistura é razoável admitir <span class="math notranslate nohighlight">\(\lambda_j = p(y_{j})\)</span>, uma vez que este expressa a probabilidade de <span class="math notranslate nohighlight">\(\textbf{x}\)</span> ter sido gerado pela <span class="math notranslate nohighlight">\(j\)</span>-ésima componente.</p>
+<p>Admitindo <span class="math notranslate nohighlight">\(_j(x | y, \theta_j)\)</span> como gaussianas multivariadas torna-se possível denominar o processo a seguir como Modelo de Mistura de Gaussianas (<span class="math notranslate nohighlight">\(\textit{Gaussian Mixture Model}\)</span> - GMM). Com base nas observações de <span class="math notranslate nohighlight">\(D = \{x_1, \ldots, x_m\}\)</span> e considerando uma configuração de parâmetros <span class="math notranslate nohighlight">\(\Psi = (\lambda_{1}, \ldots, \lambda_k, \theta_{1}, \ldots, \theta_k)\)</span> é possível calcular a pertinência de cada <span class="math notranslate nohighlight">\(\textbf{x}_{i}\)</span>, com <span class="math notranslate nohighlight">\(i = 1,\ldots, m\)</span>, em relação à componente <span class="math notranslate nohighlight">\(j\)</span>, através da expressão:</p>
+<div align="center">
+$\begin{equation}
+    w_{ij} = p(y_j = 1 | x_i, \psi) = \frac{\lambda_j p_j(x_i | y, \theta_j)}{\sum_{l=1}^{k} \lambda_l p_l(x_i | y, \theta_l)} \tag{2.27}
+\end{equation}$ </div>
+<p>Uma vez postas essas considerações, têm-se condições necessárias para inciar um processo iterativo que converge à configuração de parâmetros que conduz a uma distribuição de probabilidade modelada a partir da mistura de gaussianas. Tal processo compreende duas etaapas, uma sobre a Esperança (E - <span class="math notranslate nohighlight">\(\textit{Expectation}\)</span>) com que cada componente atua na mistura e outra sobre a Maximização (M - <span class="math notranslate nohighlight">\(\textit{Maximization}\)</span>)da probabilidade através da atualização dos parâmetros.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="metodo-do-histograma">
+<h1>2.5.3 Método do histograma<a class="headerlink" href="#metodo-do-histograma" title="Link to this heading">#</a></h1>
+<p>O método do histograma consiste em uma abordagem livre de parâmetros de distribuições de probabilidade, ou seja, não paramétrica, sendo forma simples de obter uma aproximação para a função de distribuição de probabilidade referente ao comportametno de um dado conjunto de observações <span class="math notranslate nohighlight">\(D = \{ x_i \in \mathbb{R} \, | \, i = 1, \ldots, m \}\)</span>. Para tal, o intervalo de valores que contém as observações é particionado em subintervalos disjuntos de amplitude <span class="math notranslate nohighlight">\(h\)</span>, cujo significado é similar aos intervalos ed calsses em uma tabela de distribuição de frequência usada na construção de histograma. Por conseguinte:</p>
+<div align="center">
+$\begin{equation}
+    \hat{p}(x) = \frac{1}{h} \frac{q(x)}{m} \tag{2.28}
+\end{equation}$ </div>
+<p>sendo <span class="math notranslate nohighlight">\(q(x)\)</span> uma quantificação a respeito do número de observações de <span class="math notranslate nohighlight">\(D\)</span> e que ocupam o mesmo subintervalo que contém <span class="math notranslate nohighlight">\(x\)</span>. Sendo importante destacar que este método proporciona <span class="math notranslate nohighlight">\(\hat{p}(x)\)</span> convergente à verdadeira distribuição de probabilidade <span class="math notranslate nohighlight">\(p(x)\)</span>, desde que: <span class="math notranslate nohighlight">\(m\)</span> seja suficientemente grande; <span class="math notranslate nohighlight">\(h\)</span> seja suficientemente pequeno; <span class="math notranslate nohighlight">\(q(x) \to \infty; \quad \frac{q(x)}{m} \to 0\)</span>. Além disso, esta proposta contempla apenas dados unidimensionais.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="janelas-de-parzen">
+<h1>2.5.4 Janelas de Parzen<a class="headerlink" href="#janelas-de-parzen" title="Link to this heading">#</a></h1>
+<p>De forma a contemplar a aproximação não paramétrica sobre a distribuição de probabilidade <span class="math notranslate nohighlight">\(D = \{ x_i \in \mathbb{R}^n : i = 1, \ldots, m \}\)</span>, utiliza-se hipercubos de lado <span class="math notranslate nohighlight">\(h\)</span>. visto que utilizar intervalos de amplitudes <span class="math notranslate nohighlight">\(h\)</span> seria impossivel. Além dessa consideração, é empregada a seguinte função:</p>
+<div align="center">
+$\begin{equation}
+    \phi(x_i) = 
+\begin{cases} 
+1 & \text{se } |x_{ij}| < \frac{1}{2}, \; j=1,\ldots,n \\ 
+0 & \text{caso contrário} 
+\end{cases} \tag{2.28}
+\end{equation}$ </div>
+<p><span class="math notranslate nohighlight">\(\phi(.)\)</span> atua como um verificador lógico cujo retorno igual a 1 indica que <span class="math notranslate nohighlight">\(x_{i}\)</span> é interno ao hipercubo de lado unitário centrado na origem do espaco <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>. Dessa forma, a substituição do argumento <span class="math notranslate nohighlight">\(x_{i}\)</span> por <span class="math notranslate nohighlight">\(\left(\frac{x_i - x}{h}\right)\)</span> torna-se equivalente a uma tranlação que move o hipercubo da origem ao ponto <span class="math notranslate nohighlight">\(\textbf{x}\)</span> seguida por transformação em escala, tornando-o análogo a um hipercubo de lado <span class="math notranslate nohighlight">\(h\)</span>.</p>
+<p>Por sua vez, a aproximação desejada é expressa por:</p>
+<div align="center">
+$\begin{equation}
+    \hat{p}(x) = \frac{1}{h^n m} \sum_{i=1}^{m} \phi \left(\frac{x_i - x}{h}\right) \tag{2.29}
+\end{equation}$ </div>
+<p>Um problema relacinado à Equação 2.29 refere-se a sua descontinuidade, ou seja, o comportamento binário desempenhado por <span class="math notranslate nohighlight">\(\phi(.)\)</span> pode proporcionar mudanças repentinas entre valores de probabilidade aproximados e valores nulos, causados pela ausência de observações emd eterminadas regiões não abrangidas por <span class="math notranslate nohighlight">\(D\)</span>. Uma alternativa consiste em adotar outra formulação para <span class="math notranslate nohighlight">\(\phi(.)\)</span> que seja capaz de realizar ponderações suaves sobre o espaço dos dados e assegure <span class="math notranslate nohighlight">\(\int_{\mathbb{R}^n} \phi(x) \, dx = 1\)</span>. Para tal propósito, é usalmente adotada a função:</p>
+<div align="center">
+$\begin{equation}
+    \phi(x) = \frac{1}{\sqrt{2\pi}} e^{-\frac{x^T x}{2}} \tag{2.30}
+\end{equation}$ </div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="k-vizinhos-mais-proximos">
+<h1>2.5.5 <span class="math notranslate nohighlight">\(K\)</span>-vizinhos mais próximos<a class="headerlink" href="#k-vizinhos-mais-proximos" title="Link to this heading">#</a></h1>
+<p>Na formulação inicial sobre o método Janelas de Parzen, a estimação da distribuição de probabilidade para um dado <span class="math notranslate nohighlight">\(\textbf{x}\)</span> é obtido através da noção do número de observações em <span class="math notranslate nohighlight">\(D\)</span> que ocorrem no interior de um hipercubo de volume fixo. Uma forma reversa de alcançar o mesmo resultado é fixando um número <span class="math notranslate nohighlight">\(k \in \mathbb{N}\)</span>  de observações, com <span class="math notranslate nohighlight">\(k &lt; |D|\)</span>, sobre os quais é determinado o volume da menor hiperesfera que contém <span class="math notranslate nohighlight">\(k\)</span> observações. Desse modo, ao passo que regiões com baixa densidade de probabilidade serão associadas a grandes volumes, as regiões de alta densidade serão compreendidas por volumes restritos. Sendo expressa por:</p>
+<div align="center">
+$\begin{equation}
+    \hat{p}(x) = \frac{k}{mV_{k}(x)} \tag{2.31}
+\end{equation}$ </div>
+<p>em que <span class="math notranslate nohighlight">\(m\)</span> é a cardinalidade de <span class="math notranslate nohighlight">\(D\)</span> e <span class="math notranslate nohighlight">\(V_{k}(x)\)</span> corresponde ao volume da menor hiperesfera possível com centro em <span class="math notranslate nohighlight">\(\textbf{x}\)</span> e que contém <span class="math notranslate nohighlight">\(k\)</span> observações de <span class="math notranslate nohighlight">\(D\)</span>.</p>
+<p>A quantidade <span class="math notranslate nohighlight">\(V_{k}(x)\)</span> é facilmente obtida através de:</p>
+<div align="center">
+$\begin{equation}
+   V_k(x) = V_0 \rho^n \quad \text{com} \quad V_0 =  
+\begin{cases} 
+\frac{\pi^{n/2}}{(n/2)!} & \text{se } n \text{ par} \\ 
+\frac{2^n \pi^{(n-1)/2}}{((n-1)/2)! n!} & \text{se } n \text{ ímpar} 
+\end{cases} \tag{2.32}
+\end{equation}$ </div>
+<p>sendo <span class="math notranslate nohighlight">\(\rho\)</span> a <span class="math notranslate nohighlight">\(k\)</span>-ésima menor distância observada entre <span class="math notranslate nohighlight">\(\textbf{x}\)</span> e os elementos de <span class="math notranslate nohighlight">\(D\)</span>.</p>
+<p>Considerando o conjunto de observações <span class="math notranslate nohighlight">\(D = \{ (x_i, y_i) : i = 1, \ldots, m \}\)</span>, no qual <span class="math notranslate nohighlight">\(x_i\)</span> está associado a uma classe de \Omega = { w_1, \ldots, w_c } através de indidcadores de classe <span class="math notranslate nohighlight">\(y_i \in Y = 1,\ldots,c\)</span>. A partir desse conjunto é possível estimar densidades de probabilidade para cada uma das classes isoladamente através da seguinte expressão:</p>
+<div align="center">
+$\begin{equation}
+    p(x | w_j, k) = \frac{k}{m_j V_0 \rho_{kj}(x)} \tag{2.33}
+\end{equation}$ </div>
+<p>sendo <span class="math notranslate nohighlight">\(\rho_{kj}(x)\)</span> a <span class="math notranslate nohighlight">\(k\)</span>-ésima menor distância observada entre <span class="math notranslate nohighlight">\(\textbf{x}_{i}\)</span> e cada uma das <span class="math notranslate nohighlight">\(m_j\)</span> observações presentes em <span class="math notranslate nohighlight">\(D\)</span> e associadas à classe <span class="math notranslate nohighlight">\(w_{j}\)</span>.</p>
+<p>Nestas condições, com base no modelo ML, é desenvolvida a seguinte relação:</p>
+<div align="center">
+$\begin{equation}
+   (x, w_j) \quad \leftrightarrow \quad p(x | w_j, k) > p(x | w_l, k) \quad \\
+   \leftrightarrow \quad \frac{k}{m_j V_0 \rho_{kj}(x)} > \frac{k}{m_l V_0 \rho_{kl}(x)} \quad \\
+   \leftrightarrow \quad m_l \rho_{kl}(x) > m_j \rho_{kj}(x) \tag{2.34}
+\end{equation}$ </div>
+<p>Interpretando <span class="math notranslate nohighlight">\(d_k^{(j)}(x) = m_j \rho_{kj}(x)\)</span> como uma medida de distância, têm-se:</p>
+<div align="center">
+$\begin{equation}
+   (x, w_j) \leftrightarrow \arg_{j=1, \ldots, c} \min d_{k_j}(x) \tag{2.35}
+\end{equation}$ </div>
+<p>como expressão da regra de decisão que caracteriza o classificador <span class="math notranslate nohighlight">\(k\)</span>-vizinhos mais próximos <span class="math notranslate nohighlight">\(\textit{K-Nearest Neighbors - KNN}\)</span>.</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Chapter_1"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="2_4_minima-distancia.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">2.4: Classificação por mínima distância (casos particulares)</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">2.5: Estimação de funções densidade de probabilidade</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#o-conceito-da-estimacao-por-maxima-verossimilhanca">2.5.1: O conceito da estimação por máxima verossimilhança</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-ed-mistura-de-gaussianas-e-o-algoritmo-em">2.5.2 Modelo ed mistura de gaussianas e o algoritmo EM</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#metodo-do-histograma">2.5.3 Método do histograma</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#janelas-de-parzen">2.5.4 Janelas de Parzen</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#k-vizinhos-mais-proximos">2.5.5 <span class="math notranslate nohighlight">\(K\)</span>-vizinhos mais próximos</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kamilla Taiwhscki
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

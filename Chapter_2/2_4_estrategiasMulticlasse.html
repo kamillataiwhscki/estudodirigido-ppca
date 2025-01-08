@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>1.2: Naive Bayes &#8212; Reconhecimento de Padrões</title>
+    <title>2.5 Estratétegias Multiclasse &#8212; Reconhecimento de Padrões</title>
   
   
   
@@ -62,11 +62,10 @@
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'Chapter_1/1_2_naive-bayes';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Chapter_2/2_4_estrategiasMulticlasse';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="1.3: Funções discriminantes e superfíceies de decisão" href="1_3_discriminantes.html" />
-    <link rel="prev" title="1.1: Classificação MAP e ML" href="1_1_classificacao_MAP_ML.html" />
+    <link rel="prev" title="2.4 Máquina de vetores de suporte (SVM) - versão linear" href="2_3_SVM.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -171,25 +170,20 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="1_0_bayes.html">Capítulo 1: Teoria da decisão de Bayes</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="1_1_classificacao_MAP_ML.html">1.1: Classificação MAP e ML</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">1.2: Naive Bayes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="1_3_discriminantes.html">1.3: Funções discriminantes e superfíceies de decisão</a></li>
-<li class="toctree-l2"><a class="reference internal" href="1_4_minima-distancia.html">1.4: Classificação por mínima distância (casos particulares)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="1_5_densidade-probabilidade.html">1.5: Estimação de funções densidade de probabilidade</a></li>
-<li class="toctree-l2"><a class="reference internal" href="1_6_exercicios.html">1.6 - Exercícios resolvidos</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter_1/1_0_bayes.html">Capítulo 1: Teoria da decisão de Bayes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_1_classificacao_MAP_ML.html">1.1: Classificação MAP e ML</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_2_naive-bayes.html">1.2: Naive Bayes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_3_discriminantes.html">1.3: Funções discriminantes e superfíceies de decisão</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_4_minima-distancia.html">1.4: Classificação por mínima distância (casos particulares)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_5_densidade-probabilidade.html">1.5: Estimação de funções densidade de probabilidade</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_6_exercicios.html">1.6 - Exercícios resolvidos</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter_2/2_0_classificadoresLineares.html">Capítulo 2: Classificadores lineares</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter_2/2_1_perceptron.html">2.2 Perceptron</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter_2/2_2_errosQuadraticos.html">2.3 Estimativa baseada na soma dos erros quadráticos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter_2/2_3_SVM.html">2.4 Máquina de vetores de suporte (SVM) - versão linear</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter_2/2_4_estrategiasMulticlasse.html">2.5 Estratétegias Multiclasse</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter_2/2_5_exercicios.html">2.6 - Exercícios resolvidos</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter_3/3_0_classificadoresNaoLineares.html">Capítulo 3: Classificadores não lineares</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter_3/3_1_perceptronBP.html">3.1: Perceptron multicamadas e o algoritmo <span class="math notranslate nohighlight">\(\textit{backpropagation}\)</span></a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="2_0_classificadoresLineares.html">Capítulo 2: Classificadores lineares</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="2_1_perceptron.html">2.2 Perceptron</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_2_errosQuadraticos.html">2.3 Estimativa baseada na soma dos erros quadráticos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_3_SVM.html">2.4 Máquina de vetores de suporte (SVM) - versão linear</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">2.5 Estratétegias Multiclasse</a></li>
 </ul>
 </details></li>
 </ul>
@@ -263,7 +257,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FChapter_1/1_2_naive-bayes.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FChapter_2/2_4_estrategiasMulticlasse.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -293,7 +287,7 @@
       
       
       
-      <li><a href="../_sources/Chapter_1/1_2_naive-bayes.md" target="_blank"
+      <li><a href="../_sources/Chapter_2/2_4_estrategiasMulticlasse.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -367,7 +361,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>1.2: Naive Bayes</h1>
+    <h1>2.5 Estratétegias Multiclasse</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -389,20 +383,19 @@
         text-align: justify;
     }
 </style>
-<section class="tex2jax_ignore mathjax_ignore" id="naive-bayes">
-<h1>1.2: Naive Bayes<a class="headerlink" href="#naive-bayes" title="Link to this heading">#</a></h1>
-<p>Como discutido anteriormente, um padrão <span class="math notranslate nohighlight">\(\textbf{x} \in \textbf{X}\)</span> é interpretado como um evento aleatório. Entretanto uma vez que <span class="math notranslate nohighlight">\(\textbf{X}\)</span> se refere a um espaço <span class="math notranslate nohighlight">\(\textit{n}\)</span>-dimensional qualquer, é possível reinterpretar <span class="math notranslate nohighlight">\(\textbf{x}\)</span> como <span class="math notranslate nohighlight">\(\textit{n}\)</span> para eventos aleatórios <span class="math notranslate nohighlight">\(x_{1},..., x_{n}\)</span>, os quais podem, ou não, ser independentes entre si.
-Nas diversas aplicações envolvendo classificação ou regressão de dados, o estabelecimento de modelos que não levem em consideração as estruturas de correlação entre tais variáveis pode proporcionar resultados inadequados. No entanto, um modelo “ingênuo” admite <span class="math notranslate nohighlight">\(x_{1},..., x_{n}\)</span> independentes entre si, mesmo que não o sejam, e admite que contribuem igualmente para o resultado. Sob essa condição, têm-se</p>
-<div align="center">
-<p><span class="math notranslate nohighlight">\(\begin{equation}
-    p(\textbf{x}|ω_{i}) = p(x_{1},\ldots, x_{n}|ω_{i}) = p(x_{1}|ω_{i})p(x_{2}|ω_{i})...p(x_{n}|ω_{i}) \tag{2.12}
-\end{equation}\)</span> </div></p>
-<p>Sendo assim, a regra de decisão estabelecida na Equação 2.2 torna-se equivalente a:</p>
-<div align="center">
-<p><span class="math notranslate nohighlight">\(\begin{equation}
-    (\textbf{x},ω_{j}) \leftrightarrow arg_{ω_{j}\inΩ} max \prod_{i=1}^{n} p(x_{i}|ω_{j}) \tag{2.13}
-\end{equation}\)</span> </div></p>
-<p>O modelo Naive Bayes simplifica problemas de classificação ao assumir que todas as variáveis são condicionalmente independentes segundo a classe. A simplificação reduz significativamente a complexidade do modelo, pois requer o cálculo de apenas uma probabilidade para cada variável, em vez de considerar todas as combinações possíveis. Como resultado, o Naive Bayes é computacionalmente eficiente e oferece bom desempenho em tamanhos de amostra pequenos.</p>
+<section class="tex2jax_ignore mathjax_ignore" id="estratetegias-multiclasse">
+<h1>2.5 Estratétegias Multiclasse<a class="headerlink" href="#estratetegias-multiclasse" title="Link to this heading">#</a></h1>
+<p>De acordo com as formalizações apresentadas nas seções anteriores, o processo de classificação é realizado em relação a apenas duas classes. No entanto, os problemas práticos usualmente abrangem a separação entre um número maior de classes. Para contornar essa situação, são empregadas as estratégias multiclasse.</p>
+<p>Existem dois tipos de estratégias multiclasse, as que decompõem o problema em subproblemas binários e as que reformulam os métodos em si. A decomposição em subproblemas mostra-se a mais intuitiva e simples. Entre as diferentes propostas baseadas na ideia de decomposição, as estratégias Um-Versus-Restante (<span class="math notranslate nohighlight">\(\textit{One-Versus-Rest}\)</span> - OVR) e Um-Versus-Um (<span class="math notranslate nohighlight">\(\textit{One-Versus-One}\)</span> - OVO) são comuns.</p>
+<p>Em relação à estratégia OVR, supondo um problema de classificação que envolve <span class="math notranslate nohighlight">\(c\)</span> classes, são definidos <span class="math notranslate nohighlight">\(c\)</span> classificadores binários. Cada classificador é responsável pela separação de um classe específica em relação às demais. A classe de um padrão é determinada pelo classificador binário que é capaz de discriminá-lo corretamente e proporcionar a maior distância possível à superfície de decisão (ou hiperplano de separação). Conforme já foi discutido, a distância entre um dado padrão <span class="math notranslate nohighlight">\(\textbf{x}_{i}\)</span> e asuperfície/hiperplano de decisão <span class="math notranslate nohighlight">\(g(\textbf{x})=0\)</span> é obtida por <span class="math notranslate nohighlight">\(|g(\textbf{x})|\)</span>.</p>
+<p>Por outro lado, em consideração à estratégia OVO, para o mesmo problema de classificação envolvendo <span class="math notranslate nohighlight">\(c\)</span> classes, são definidos <span class="math notranslate nohighlight">\(c(c-1)/2\)</span> (i.e., o número de combinações geradas por <span class="math notranslate nohighlight">\(c\)</span> elementos tomados dois a dois) classificadores binários, sendo cada um deles responsável pela separação de padrões de determinado par de classes. Dessa maneira, um padrão pode ser classificado com relação a uma mesma classe diversas vezes. Por sua vez, a classificação final de um padrão é dada pela maior frequência observada com que ele é associado a uma determinada classe.</p>
+<p>A Figura 2.11 ilustra o uso das estratégias OVR e OVO em um problema de classificação envolvendo 3 classes (<span class="math notranslate nohighlight">\(Ω={\circ,◇,△}\)</span>). A notação <span class="math notranslate nohighlight">\(g_{A/B}\)</span> define que o hiperplano <span class="math notranslate nohighlight">\(g\)</span> realiza a separação entre os conjutos <span class="math notranslate nohighlight">\(A\)</span> e <span class="math notranslate nohighlight">\(B\)</span>. Na estratégia OVR, o padrão <span class="math notranslate nohighlight">\(♣\)</span> pertence à classe composta por elementos <span class="math notranslate nohighlight">\(∘\)</span> devido à  maior distância (perpendicular) em relação ao hiperplano <span class="math notranslate nohighlight">\(g{\circ/Ω-\{\circ\}}\)</span>. Embora o padrão apresente maior distância quanto ao hiperplano <span class="math notranslate nohighlight">\(g{◇/Ω-\{◇\}}\)</span> e pertença à classe <span class="math notranslate nohighlight">\(Ω-\{◇\}\)</span>, não é possível determinar se este padrão pertence se este padrão pertence a classe <span class="math notranslate nohighlight">\(\circ\)</span> ou <span class="math notranslate nohighlight">\(△\)</span>. Na estratégia OVO, o padrão <span class="math notranslate nohighlight">\(♣\)</span> é classificado novamente segundo a classe <span class="math notranslate nohighlight">\(∘\)</span>, pois, entre os três casos binários analisados (<span class="math notranslate nohighlight">\(g_{∘/◇}\)</span>,<span class="math notranslate nohighlight">\(g_{△/◇}\)</span> e <span class="math notranslate nohighlight">\(g_{∘/△}\)</span>), ele foi associado à classe <span class="math notranslate nohighlight">\(\circ\)</span> duas vezes, em <span class="math notranslate nohighlight">\(g_{∘/◇}\)</span> e <span class="math notranslate nohighlight">\(g_{∘/△}\)</span>.</p>
+<div align="center">   
+<p><img alt="figura11" src="../_images/figura211.png" /> <legend>Figura 2.11 - Aplicação das estratégias multiclasse OVR e OVO em um problema de separação de 3 classes.</legend> </div></p>
+<p>Para aplicar a estratégia de OVR utilizando o SVM, basta a inclusão de <span class="math notranslate nohighlight">\(\textbf{decision_function_shape='ovr'}\)</span> durante a sua instanciação. A Figura 2.12 ilustra as regiões de decisão obtidas pelo SVM utilizando a estratégia.</p>
+<div align="center"> 
+<p><img alt="figura12" src="../_images/figura212.png" /> <legend>2.12 - Regiões de decisão definidas pelo SVM utilizando a estratégia OVR.</legend></p>
+</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -418,7 +411,7 @@ Nas diversas aplicações envolvendo classificação ou regressão de dados, o e
         },
         kernelOptions: {
             name: "python3",
-            path: "./Chapter_1"
+            path: "./Chapter_2"
         },
         predefinedOutput: true
     }
@@ -436,22 +429,13 @@ Nas diversas aplicações envolvendo classificação ou regressão de dados, o e
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="1_1_classificacao_MAP_ML.html"
+       href="2_3_SVM.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">1.1: Classificação MAP e ML</p>
+        <p class="prev-next-title">2.4 Máquina de vetores de suporte (SVM) - versão linear</p>
       </div>
-    </a>
-    <a class="right-next"
-       href="1_3_discriminantes.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">1.3: Funções discriminantes e superfíceies de decisão</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>

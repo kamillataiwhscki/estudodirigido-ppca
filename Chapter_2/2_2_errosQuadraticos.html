@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>1.2: Naive Bayes &#8212; Reconhecimento de Padrões</title>
+    <title>2.3 Estimativa baseada na soma dos erros quadráticos &#8212; Reconhecimento de Padrões</title>
   
   
   
@@ -62,11 +62,10 @@
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'Chapter_1/1_2_naive-bayes';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Chapter_2/2_2_errosQuadraticos';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="1.3: Funções discriminantes e superfíceies de decisão" href="1_3_discriminantes.html" />
-    <link rel="prev" title="1.1: Classificação MAP e ML" href="1_1_classificacao_MAP_ML.html" />
+    <link rel="prev" title="2.2 Perceptron" href="2_1_perceptron.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -171,25 +170,18 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="1_0_bayes.html">Capítulo 1: Teoria da decisão de Bayes</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="1_1_classificacao_MAP_ML.html">1.1: Classificação MAP e ML</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">1.2: Naive Bayes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="1_3_discriminantes.html">1.3: Funções discriminantes e superfíceies de decisão</a></li>
-<li class="toctree-l2"><a class="reference internal" href="1_4_minima-distancia.html">1.4: Classificação por mínima distância (casos particulares)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="1_5_densidade-probabilidade.html">1.5: Estimação de funções densidade de probabilidade</a></li>
-<li class="toctree-l2"><a class="reference internal" href="1_6_exercicios.html">1.6 - Exercícios resolvidos</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter_1/1_0_bayes.html">Capítulo 1: Teoria da decisão de Bayes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_1_classificacao_MAP_ML.html">1.1: Classificação MAP e ML</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_2_naive-bayes.html">1.2: Naive Bayes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_3_discriminantes.html">1.3: Funções discriminantes e superfíceies de decisão</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_4_minima-distancia.html">1.4: Classificação por mínima distância (casos particulares)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_5_densidade-probabilidade.html">1.5: Estimação de funções densidade de probabilidade</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_6_exercicios.html">1.6 - Exercícios resolvidos</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter_2/2_0_classificadoresLineares.html">Capítulo 2: Classificadores lineares</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter_2/2_1_perceptron.html">2.2 Perceptron</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter_2/2_2_errosQuadraticos.html">2.3 Estimativa baseada na soma dos erros quadráticos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter_2/2_3_SVM.html">2.4 Máquina de vetores de suporte (SVM) - versão linear</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter_2/2_4_estrategiasMulticlasse.html">2.5 Estratétegias Multiclasse</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter_2/2_5_exercicios.html">2.6 - Exercícios resolvidos</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter_3/3_0_classificadoresNaoLineares.html">Capítulo 3: Classificadores não lineares</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter_3/3_1_perceptronBP.html">3.1: Perceptron multicamadas e o algoritmo <span class="math notranslate nohighlight">\(\textit{backpropagation}\)</span></a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="2_0_classificadoresLineares.html">Capítulo 2: Classificadores lineares</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="2_1_perceptron.html">2.2 Perceptron</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">2.3 Estimativa baseada na soma dos erros quadráticos</a></li>
 </ul>
 </details></li>
 </ul>
@@ -263,7 +255,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FChapter_1/1_2_naive-bayes.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FChapter_2/2_2_errosQuadraticos.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -293,7 +285,7 @@
       
       
       
-      <li><a href="../_sources/Chapter_1/1_2_naive-bayes.md" target="_blank"
+      <li><a href="../_sources/Chapter_2/2_2_errosQuadraticos.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -367,7 +359,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>1.2: Naive Bayes</h1>
+    <h1>2.3 Estimativa baseada na soma dos erros quadráticos</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -382,27 +374,58 @@
                 <article class="bd-article">
                   
   <style>
-    legend {
-        font-size: 16px;
-    }
     main {
         text-align: justify;
     }
+    legend {
+        font-size: 16px;
+    }
 </style>
-<section class="tex2jax_ignore mathjax_ignore" id="naive-bayes">
-<h1>1.2: Naive Bayes<a class="headerlink" href="#naive-bayes" title="Link to this heading">#</a></h1>
-<p>Como discutido anteriormente, um padrão <span class="math notranslate nohighlight">\(\textbf{x} \in \textbf{X}\)</span> é interpretado como um evento aleatório. Entretanto uma vez que <span class="math notranslate nohighlight">\(\textbf{X}\)</span> se refere a um espaço <span class="math notranslate nohighlight">\(\textit{n}\)</span>-dimensional qualquer, é possível reinterpretar <span class="math notranslate nohighlight">\(\textbf{x}\)</span> como <span class="math notranslate nohighlight">\(\textit{n}\)</span> para eventos aleatórios <span class="math notranslate nohighlight">\(x_{1},..., x_{n}\)</span>, os quais podem, ou não, ser independentes entre si.
-Nas diversas aplicações envolvendo classificação ou regressão de dados, o estabelecimento de modelos que não levem em consideração as estruturas de correlação entre tais variáveis pode proporcionar resultados inadequados. No entanto, um modelo “ingênuo” admite <span class="math notranslate nohighlight">\(x_{1},..., x_{n}\)</span> independentes entre si, mesmo que não o sejam, e admite que contribuem igualmente para o resultado. Sob essa condição, têm-se</p>
+<section class="tex2jax_ignore mathjax_ignore" id="estimativa-baseada-na-soma-dos-erros-quadraticos">
+<h1>2.3 Estimativa baseada na soma dos erros quadráticos<a class="headerlink" href="#estimativa-baseada-na-soma-dos-erros-quadraticos" title="Link to this heading">#</a></h1>
+<p>Uma alternativa de classificador linear é modelada com base no conceito de soma dos erros quadráticos (SSE - <span class="math notranslate nohighlight">\(\textit{Sum of Squared Errors}\)</span>). De forma análoga ao Perceptron, inicia-se com a suposição de disponibilidade de <span class="math notranslate nohighlight">\(D = \{(\textbf{x}_{i},y_{i}) \in \textit{X} \times \textit{Y}: i=1,...,m\}\)</span> e que o processo de aprendizado é verificado com base nos valores retornados por <span class="math notranslate nohighlight">\(J(\textbf{w})\)</span>, sendo <span class="math notranslate nohighlight">\(\textbf{w} = [ω_{0},ω_{1},...,ω_{n}]^{T}\)</span> o vetor que parametriza a função e superfície de decisão linear. Nesta abordagem, tal função é definida por:</p>
 <div align="center">
 <p><span class="math notranslate nohighlight">\(\begin{equation}
-    p(\textbf{x}|ω_{i}) = p(x_{1},\ldots, x_{n}|ω_{i}) = p(x_{1}|ω_{i})p(x_{2}|ω_{i})...p(x_{n}|ω_{i}) \tag{2.12}
+  J(\textbf{w})=\sum_{i=1}^{m} (y_{i}-\textbf{x}^{T}\textbf{x})^{2} \tag{2.8}
+  \end{equation}\)</span></p>
+<p>Sabendo que a minimização de <span class="math notranslate nohighlight">\(J(\textbf{w})\)</span> leva a <span class="math notranslate nohighlight">\(\textbf{w}\)</span>, cujos erros de classificação proporcionados são mínimos, desenvolvemos a seguinte relação:</p>
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+\frac{∂J(\textbf{w})}{∂\textbf{w}} = 0 ⇔ \frac{∂\sum_{i=1}^{m} (y_{i}-\textbf{x}^{T}\textbf{x})^{2} }{∂\textbf{w}} = 0 ⇔ -2\sum_{i=1}^{m} y_{i}\textbf{x}_{i}^{T} + 2\sum_{i=1}^{m} y_{i}\textbf{x}_{i}^{T}\textbf{w} = 0 ⇔ \textbf{w}\sum_{i=1}^{m} \textbf{x}_{i}\textbf{x}_{i}^{T} = \sum_{i=1}^{m} y_{i}\textbf{x}_{i}^{T} \tag{2.9}
 \end{equation}\)</span> </div></p>
-<p>Sendo assim, a regra de decisão estabelecida na Equação 2.2 torna-se equivalente a:</p>
+<p>É importante observar que <span class="math notranslate nohighlight">\(\sum_{i=1}^{m}\textbf{x}_{i}\textbf{x}_{i}^{T}\)</span> prorpociona uma matriz quadrada como resultado, assim como <span class="math notranslate nohighlight">\(\sum_{i=1}^{m} y_{i}\textbf{x}_{i}^{T}\)</span> gera um vetor. Denominado tal matriz e o vetor por <span class="math notranslate nohighlight">\(\textbf{A}\)</span> e <span class="math notranslate nohighlight">\(\textbf{b}\)</span>, respectivamente, a Equação 2.9 torna-se equivalente a:</p>
 <div align="center">
 <p><span class="math notranslate nohighlight">\(\begin{equation}
-    (\textbf{x},ω_{j}) \leftrightarrow arg_{ω_{j}\inΩ} max \prod_{i=1}^{n} p(x_{i}|ω_{j}) \tag{2.13}
+\textbf{w} = \textbf{A}^{-1}\textbf{b} \tag{2.10}
 \end{equation}\)</span> </div></p>
-<p>O modelo Naive Bayes simplifica problemas de classificação ao assumir que todas as variáveis são condicionalmente independentes segundo a classe. A simplificação reduz significativamente a complexidade do modelo, pois requer o cálculo de apenas uma probabilidade para cada variável, em vez de considerar todas as combinações possíveis. Como resultado, o Naive Bayes é computacionalmente eficiente e oferece bom desempenho em tamanhos de amostra pequenos.</p>
+<p>O uso desta técnica implica em resultados similares aos proporcionados pelo algoritmo Perceptron associado à estratégia de relaxamento.</p>
+<ul class="simple">
+<li></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Implementação de função para cálculo de w segundo o método SSE</span>
+
+<span class="k">def</span> <span class="nf">SSE</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+  <span class="n">dim</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1">#Dimensão dos padrões</span>
+  <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">dim</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="c1">#w como vetor do &quot;espaço estendido&quot;</span>
+
+  <span class="c1">#Definindo uma matriz (n+1)x(n+1), sendo n = dim</span>
+  <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+
+  <span class="c1">#Definindo uma matriz/vetor 1x(n+1)</span>
+  <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+  <span class="c1">#Cálculo de &quot;A&quot; e &quot;b&quot;</span>
+  <span class="k">for</span> <span class="n">xi</span><span class="p">,</span> <span class="n">yi</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+    <span class="n">A</span> <span class="o">+=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="n">xi</span><span class="p">)))</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="n">xi</span><span class="p">)))))</span>
+
+    <span class="n">b</span> <span class="o">+=</span> <span class="n">yi</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="n">xi</span><span class="p">))</span>
+
+  <span class="n">w</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="p">))</span> <span class="c1">#w = inversa(A)*b</span>
+  <span class="k">return</span> <span class="n">w</span>
+</pre></div>
+</div>
+<p>A Figura 2.6 é a saída da execução do código acima.</p>
+<div align="center">
+<p><img alt="figura1" src="../_images/metodosse.png" /> <legend>Figura 2.6 - Implementação de função para cálçuclo de <span class="math notranslate nohighlight">\(\textbf{w}\)</span> segundo o método SSE.</legend> </div></p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -418,7 +441,7 @@ Nas diversas aplicações envolvendo classificação ou regressão de dados, o e
         },
         kernelOptions: {
             name: "python3",
-            path: "./Chapter_1"
+            path: "./Chapter_2"
         },
         predefinedOutput: true
     }
@@ -436,22 +459,13 @@ Nas diversas aplicações envolvendo classificação ou regressão de dados, o e
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="1_1_classificacao_MAP_ML.html"
+       href="2_1_perceptron.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">1.1: Classificação MAP e ML</p>
+        <p class="prev-next-title">2.2 Perceptron</p>
       </div>
-    </a>
-    <a class="right-next"
-       href="1_3_discriminantes.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">1.3: Funções discriminantes e superfíceies de decisão</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>

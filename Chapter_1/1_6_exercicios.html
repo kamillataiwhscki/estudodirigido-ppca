@@ -60,9 +60,12 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Chapter_1/1_6_exercicios';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Capítulo 2: Classificadores lineares" href="../Chapter_2/2_0_classificadoresLineares.html" />
     <link rel="prev" title="1.5: Estimação de funções densidade de probabilidade" href="1_5_densidade-probabilidade.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -175,6 +178,13 @@
 <li class="toctree-l2"><a class="reference internal" href="1_4_minima-distancia.html">1.4: Classificação por mínima distância (casos particulares)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="1_5_densidade-probabilidade.html">1.5: Estimação de funções densidade de probabilidade</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">1.6 - Exercícios resolvidos</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter_2/2_0_classificadoresLineares.html">Capítulo 2: Classificadores lineares</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_2/2_1_perceptron.html">2.2 Perceptron</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_2/2_2_errosQuadraticos.html">2.3 Estimativa baseada na soma dos erros quadráticos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_2/2_3_SVM.html">2.4 Máquina de vetores de suporte (SVM) - versão linear</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_2/2_4_estrategiasMulticlasse.html">2.5 Estratétegias Multiclasse</a></li>
 </ul>
 </details></li>
 </ul>
@@ -364,6 +374,7 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#codigo-de-referencia-para-resolver-os-exercicios">Código de referência para resolver os exercícios.</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercicio-1-modelo-de-maxima-verossimilhanca">Exercício 1 - Modelo de máxima verossimilhança</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resultados">Resultados</a></li>
 </ul>
@@ -374,6 +385,12 @@
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercicio-3-classificador-knn">Exercício 3 - Classificador KNN</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Resultados</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercicio-4-metodo-gmm">Exercício 4 - Método GMM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercicio-5-janelas-de-parzen">Exercício 5 - Janelas de Parzen</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercicio-6-ml-naive-bayes-minima-distancia-de-mahalanobis-e-knn">Exercício 6 - ML, Naive Bayes, mínima distância de Mahalanobis e KNN</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Resultados</a></li>
 </ul>
 </li>
 </ul>
@@ -401,8 +418,20 @@
 <section class="tex2jax_ignore mathjax_ignore" id="exercicios-resolvidos">
 <h1>1.6 - Exercícios resolvidos<a class="headerlink" href="#exercicios-resolvidos" title="Link to this heading">#</a></h1>
 <p>Esta seção contém a resolução dos exercícios propostos no Capítulo 2 do livro texto de referência.</p>
+<section id="codigo-de-referencia-para-resolver-os-exercicios">
+<h2>Código de referência para resolver os exercícios.<a class="headerlink" href="#codigo-de-referencia-para-resolver-os-exercicios" title="Link to this heading">#</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">quantidades</span><span class="p">[</span><span class="n">r</span><span class="p">]):</span>
+        <span class="n">st</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">rotulos</span><span class="p">[</span><span class="n">r</span><span class="p">])</span>
+        <span class="n">st</span> <span class="o">+=</span> <span class="s1">&#39;,&#39;</span> <span class="o">+</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">dados</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>  <span class="c1"># Formata os dados em uma string</span>
+        <span class="n">st</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="c1">#Força continuação na próxima linha</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">st</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span> <span class="c1">#Encerra o processo de escrita dos dados</span>
+</pre></div>
+</div>
+</section>
 <section id="exercicio-1-modelo-de-maxima-verossimilhanca">
 <h2>Exercício 1 - Modelo de máxima verossimilhança<a class="headerlink" href="#exercicio-1-modelo-de-maxima-verossimilhanca" title="Link to this heading">#</a></h2>
+<p>Considere um problema de classificação envolvendo duas classes, <span class="math notranslate nohighlight">\(\omega_{1}\)</span> e <span class="math notranslate nohighlight">\(\omega_{2}\)</span>, para o qual será empregado o modelo ML. Efetue a modelagem das distribuições de probabilidade (gaussianas multivariadas) referetes às classes <span class="math notranslate nohighlight">\(\omega_{1}\)</span> e <span class="math notranslate nohighlight">\(\omega_{2}\)</span> com base em um conjunto de dados <span class="math notranslate nohighlight">\(D\)</span>. Posteriormente, realize a classificação de um segundo conjunto de dados <span class="math notranslate nohighlight">\(I\)</span> e contabilize o número de previsões corretas proporcionadas com base no rótulo associado a cada exemplo.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
@@ -503,6 +532,7 @@
 </section>
 <section id="exercicio-2-modelo-naive-bayes">
 <h2>Exercício 2 - Modelo Naive Bayes<a class="headerlink" href="#exercicio-2-modelo-naive-bayes" title="Link to this heading">#</a></h2>
+<p>Refaça o exercício anterior com uso do modelo Naive Bayes.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
@@ -626,6 +656,12 @@
 </section>
 <section id="exercicio-3-classificador-knn">
 <h2>Exercício 3 - Classificador KNN<a class="headerlink" href="#exercicio-3-classificador-knn" title="Link to this heading">#</a></h2>
+<p>Utilize os conjuntos <span class="math notranslate nohighlight">\(D\)</span> e <span class="math notranslate nohighlight">\(I\)</span> obtidos no Exercício 1 para modelagem e aplicação do classificador KNN. Verifique a porcentagem de acerto deste método assumindo:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(k = 3\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(k = 11\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(k = 25\)</span></p></li>
+</ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
@@ -753,6 +789,273 @@
 </div>
 </section>
 </section>
+<section id="exercicio-4-metodo-gmm">
+<h2>Exercício 4 - Método GMM<a class="headerlink" href="#exercicio-4-metodo-gmm" title="Link to this heading">#</a></h2>
+<p>Aplique o método GMM, baseado em distribuições gaussianas multivariadas, a fim de modelar o comportamento da distribuição de probabilidade dos dados gerados no Exercício 1.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.mixture</span> <span class="kn">import</span> <span class="n">GaussianMixture</span>
+
+<span class="c1"># Configuração da semente para manter sempre os mesmos resultados</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
+
+<span class="c1"># Caminho do arquivo de saída</span>
+<span class="n">path_out</span> <span class="o">=</span> <span class="s1">&#39;saidaSim.txt&#39;</span>
+
+<span class="c1"># Parâmetros das distribuições</span>
+<span class="n">mu1</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]</span>
+<span class="n">Sigma1</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]]</span>
+<span class="n">qnt1</span> <span class="o">=</span> <span class="mi">20</span>
+
+<span class="n">mu2</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
+<span class="n">Sigma2</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]]</span>
+<span class="n">qnt2</span> <span class="o">=</span> <span class="mi">40</span>
+
+<span class="n">mu3</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.5</span><span class="p">]</span>
+<span class="n">Sigma3</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]]</span>
+<span class="n">qnt3</span> <span class="o">=</span> <span class="mi">50</span>
+
+<span class="n">conjMu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">mu1</span><span class="p">,</span> <span class="n">mu2</span><span class="p">,</span> <span class="n">mu3</span><span class="p">])</span>
+<span class="n">conjSigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">Sigma1</span><span class="p">,</span> <span class="n">Sigma2</span><span class="p">,</span> <span class="n">Sigma3</span><span class="p">])</span>
+<span class="n">quantidades</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">qnt1</span><span class="p">,</span> <span class="n">qnt2</span><span class="p">,</span> <span class="n">qnt3</span><span class="p">])</span>
+
+<span class="c1"># Criar e gravar dados</span>
+<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_out</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+
+<span class="c1"># Listas para armazenar dados</span>
+<span class="n">todos_dados</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">conjMu</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+    <span class="n">dados</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span><span class="n">conjMu</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">conjSigma</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">quantidades</span><span class="p">[</span><span class="n">r</span><span class="p">])</span>
+
+    <span class="c1"># Gravar dados e armazenar nos arrays</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">quantidades</span><span class="p">[</span><span class="n">r</span><span class="p">]):</span>
+        <span class="n">st</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">dados</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>  <span class="c1"># Formata os dados em uma string</span>
+        <span class="n">st</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">st</span><span class="p">)</span>
+
+    <span class="c1"># Armazenar dados</span>
+    <span class="n">todos_dados</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dados</span><span class="p">)</span>
+
+<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="c1"># Concatenar todos os dados em arrays numpy</span>
+<span class="n">todos_dados</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">todos_dados</span><span class="p">)</span>  <span class="c1"># Todos os dados concatenados</span>
+
+<span class="c1"># Aplicar o modelo GMM (Gaussian Mixture Model)</span>
+<span class="n">num_componentes</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">modelo_gmm</span> <span class="o">=</span> <span class="n">GaussianMixture</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="n">num_componentes</span><span class="p">,</span> <span class="n">covariance_type</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">modelo_gmm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">todos_dados</span><span class="p">)</span>
+
+<span class="c1"># Prever as classes com base no GMM</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">modelo_gmm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">todos_dados</span><span class="p">)</span>
+
+<span class="c1"># Plotar os dados e as distribuições modeladas</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">todos_dados</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">todos_dados</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Modelagem com GMM&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Eixo X&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Eixo Y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Clusters&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div align="center"> 
+<p><img alt="figura1" src="../_images/exercicio4cap1.png" /> <legend>Figura 1.7 - Resultado ao executar código do exercício 4. Fonte: Elaborado pelo autor.</p>
+</legend>
+</div>
+</section>
+<section id="exercicio-5-janelas-de-parzen">
+<h2>Exercício 5 - Janelas de Parzen<a class="headerlink" href="#exercicio-5-janelas-de-parzen" title="Link to this heading">#</a></h2>
+<p>Refaça o exercício anterior com uso de Janelas de Parzen para modelagem da distribuição de probabilidade</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KernelDensity</span>
+
+<span class="c1"># Configuração da semente para manter sempre os mesmos resultados</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
+
+<span class="c1"># Caminho do arquivo de saída</span>
+<span class="n">path_out</span> <span class="o">=</span> <span class="s1">&#39;saidaSim.txt&#39;</span>
+
+<span class="c1"># Parâmetros das distribuições</span>
+<span class="n">mu1</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]</span>
+<span class="n">Sigma1</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]]</span>
+<span class="n">qnt1</span> <span class="o">=</span> <span class="mi">20</span>
+
+<span class="n">mu2</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
+<span class="n">Sigma2</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]]</span>
+<span class="n">qnt2</span> <span class="o">=</span> <span class="mi">40</span>
+
+<span class="n">mu3</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.5</span><span class="p">]</span>
+<span class="n">Sigma3</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]]</span>
+<span class="n">qnt3</span> <span class="o">=</span> <span class="mi">50</span>
+
+<span class="n">conjMu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">mu1</span><span class="p">,</span> <span class="n">mu2</span><span class="p">,</span> <span class="n">mu3</span><span class="p">])</span>
+<span class="n">conjSigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">Sigma1</span><span class="p">,</span> <span class="n">Sigma2</span><span class="p">,</span> <span class="n">Sigma3</span><span class="p">])</span>
+<span class="n">quantidades</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">qnt1</span><span class="p">,</span> <span class="n">qnt2</span><span class="p">,</span> <span class="n">qnt3</span><span class="p">])</span>
+
+<span class="c1"># Criar e gravar dados</span>
+<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_out</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+
+<span class="c1"># Listas para armazenar dados</span>
+<span class="n">todos_dados</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">conjMu</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+    <span class="n">dados</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span><span class="n">conjMu</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">conjSigma</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">quantidades</span><span class="p">[</span><span class="n">r</span><span class="p">])</span>
+
+    <span class="c1"># Gravar dados e armazenar nos arrays</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">quantidades</span><span class="p">[</span><span class="n">r</span><span class="p">]):</span>
+        <span class="n">st</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">dados</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>  <span class="c1"># Formata os dados em uma string</span>
+        <span class="n">st</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">st</span><span class="p">)</span>
+
+    <span class="c1"># Armazenar dados</span>
+    <span class="n">todos_dados</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dados</span><span class="p">)</span>
+
+<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="c1"># Concatenar todos os dados em arrays numpy</span>
+<span class="n">todos_dados</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">todos_dados</span><span class="p">)</span>  <span class="c1"># Todos os dados concatenados</span>
+
+<span class="c1"># Aplicar o método de Janelas de Parzen</span>
+<span class="n">kde</span> <span class="o">=</span> <span class="n">KernelDensity</span><span class="p">(</span><span class="n">bandwidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;gaussian&#39;</span><span class="p">)</span>
+<span class="n">kde</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">todos_dados</span><span class="p">)</span>
+
+<span class="c1"># Geração de uma grade de pontos para visualização</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+<span class="n">grid_points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">y</span><span class="o">.</span><span class="n">ravel</span><span class="p">()])</span><span class="o">.</span><span class="n">T</span>
+
+<span class="c1"># Avaliar a densidade para cada ponto da grade</span>
+<span class="n">log_density</span> <span class="o">=</span> <span class="n">kde</span><span class="o">.</span><span class="n">score_samples</span><span class="p">(</span><span class="n">grid_points</span><span class="p">)</span>
+<span class="n">density</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_density</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="c1"># Plotar a densidade estimada</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">density</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">todos_dados</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">todos_dados</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Modelagem com Janelas de Parzen&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Eixo X&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Eixo Y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Densidade Estimada&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div align="center"> 
+<p><img alt="figura1" src="../_images/janelasdeparzen.png" /> <legend>Figura 1.8 - Resultado ao executar código do exercício 5. Fonte: Elaborado pelo autor.</p>
+</legend>
+</div>
+</section>
+<section id="exercicio-6-ml-naive-bayes-minima-distancia-de-mahalanobis-e-knn">
+<h2>Exercício 6 - ML, Naive Bayes, mínima distância de Mahalanobis e KNN<a class="headerlink" href="#exercicio-6-ml-naive-bayes-minima-distancia-de-mahalanobis-e-knn" title="Link to this heading">#</a></h2>
+<p>Aplique os modelos de classificação ML, Naive Bayes, mínima distância de Mahalanobis e KNN sobre problemas de classificação envolvendo quatro classes. Realize tais aplicações sobre dados simulados. Faça as adaptações necessárias nos códigos apresentados a fim de permitir tal generalização.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="kn">from</span> <span class="nn">scipy.spatial</span> <span class="kn">import</span> <span class="n">distance</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">multivariate_normal</span>
+
+<span class="c1"># Configuração da semente para manter sempre os mesmos resultados</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
+
+<span class="c1"># Parâmetros das distribuições</span>
+<span class="n">mu1</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]</span>
+<span class="n">Sigma1</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]]</span>
+<span class="n">qnt1</span> <span class="o">=</span> <span class="mi">40</span>
+
+<span class="n">mu2</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
+<span class="n">Sigma2</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]]</span>
+<span class="n">qnt2</span> <span class="o">=</span> <span class="mi">40</span>
+
+<span class="n">mu3</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.5</span><span class="p">]</span>
+<span class="n">Sigma3</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]]</span>
+<span class="n">qnt3</span> <span class="o">=</span> <span class="mi">50</span>
+
+<span class="n">mu4</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">]</span>
+<span class="n">Sigma4</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">]]</span>
+<span class="n">qnt4</span> <span class="o">=</span> <span class="mi">45</span>
+
+<span class="n">conjMu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">mu1</span><span class="p">,</span> <span class="n">mu2</span><span class="p">,</span> <span class="n">mu3</span><span class="p">,</span> <span class="n">mu4</span><span class="p">])</span>
+<span class="n">conjSigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">Sigma1</span><span class="p">,</span> <span class="n">Sigma2</span><span class="p">,</span> <span class="n">Sigma3</span><span class="p">,</span> <span class="n">Sigma4</span><span class="p">])</span>
+<span class="n">quantidades</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">qnt1</span><span class="p">,</span> <span class="n">qnt2</span><span class="p">,</span> <span class="n">qnt3</span><span class="p">,</span> <span class="n">qnt4</span><span class="p">])</span>
+<span class="n">rotulos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+
+<span class="c1"># Gerar dados</span>
+<span class="n">todos_dados</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">todos_rotulos</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">conjMu</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+    <span class="n">dados</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span><span class="n">conjMu</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">conjSigma</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">quantidades</span><span class="p">[</span><span class="n">r</span><span class="p">])</span>
+    <span class="n">todos_dados</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dados</span><span class="p">)</span>
+    <span class="n">todos_rotulos</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">rotulos</span><span class="p">[</span><span class="n">r</span><span class="p">]]</span> <span class="o">*</span> <span class="n">quantidades</span><span class="p">[</span><span class="n">r</span><span class="p">])</span>
+
+<span class="c1"># Concatenar todos os dados e rótulos</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">todos_dados</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">todos_rotulos</span><span class="p">)</span>
+
+<span class="c1"># Dividir em treino e teste</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+
+<span class="c1"># Naive Bayes</span>
+<span class="n">nb_model</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+<span class="n">nb_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">nb_acc</span> <span class="o">=</span> <span class="n">nb_model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+
+<span class="c1"># KNN</span>
+<span class="n">knn_model</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">knn_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">knn_acc</span> <span class="o">=</span> <span class="n">knn_model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+
+<span class="c1"># Distância de Mahalanobis</span>
+<span class="n">mahalanobis_distances</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">xi</span> <span class="ow">in</span> <span class="n">X_test</span><span class="p">:</span>
+    <span class="n">dists</span> <span class="o">=</span> <span class="p">[</span><span class="n">distance</span><span class="o">.</span><span class="n">mahalanobis</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">y_train</span> <span class="o">==</span> <span class="n">c</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">y_train</span> <span class="o">==</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">)))</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_train</span><span class="p">)]</span>
+    <span class="n">mahalanobis_distances</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">dists</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">mahalanobis_acc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">mahalanobis_distances</span> <span class="o">==</span> <span class="n">y_test</span><span class="p">)</span>
+
+<span class="c1"># Máxima Verossimilhança (MLE)</span>
+<span class="n">mle_predictions</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">xi</span> <span class="ow">in</span> <span class="n">X_test</span><span class="p">:</span>
+    <span class="n">probs</span> <span class="o">=</span> <span class="p">[</span><span class="n">multivariate_normal</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">mean</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">y_train</span> <span class="o">==</span> <span class="n">c</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">cov</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">y_train</span> <span class="o">==</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">))</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_train</span><span class="p">)]</span>
+    <span class="n">mle_predictions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">mle_acc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">mle_predictions</span> <span class="o">==</span> <span class="n">y_test</span><span class="p">)</span>
+
+<span class="c1"># Exibir resultados</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Naive Bayes Acurácia: </span><span class="si">{</span><span class="n">nb_acc</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;KNN Acurácia: </span><span class="si">{</span><span class="n">knn_acc</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Distância de Mahalanobis Acurácia: </span><span class="si">{</span><span class="n">mahalanobis_acc</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Máxima Verossimilhança Acurácia: </span><span class="si">{</span><span class="n">mle_acc</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># Visualização dos dados</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="n">c</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="n">c</span><span class="p">][:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Classe </span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distribuição das Classes Simuladas&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Eixo X&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Eixo Y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<section id="id3">
+<h3>Resultados<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>Acurácia por modelo:</p>
+<ul class="simple">
+<li><p>Naive Bayes Acurácia: 0.81</p></li>
+<li><p>KNN Acurácia: 0.75</p></li>
+<li><p>Distância de Mahalanobis Acurácia: 0.66</p></li>
+<li><p>Máxima Verossimilhança Acurácia: 0.72</p></li>
+</ul>
+<div align="center"> 
+<p><img alt="figura1" src="../_images/ex6cap1.png" /> <legend>Figura 1.9 - Resultado ao executar código do exercício 6. Fonte: Elaborado pelo autor.</p>
+</legend>
+</div>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -794,6 +1097,15 @@
         <p class="prev-next-title">1.5: Estimação de funções densidade de probabilidade</p>
       </div>
     </a>
+    <a class="right-next"
+       href="../Chapter_2/2_0_classificadoresLineares.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Capítulo 2: Classificadores lineares</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -811,6 +1123,7 @@
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#codigo-de-referencia-para-resolver-os-exercicios">Código de referência para resolver os exercícios.</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercicio-1-modelo-de-maxima-verossimilhanca">Exercício 1 - Modelo de máxima verossimilhança</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resultados">Resultados</a></li>
 </ul>
@@ -821,6 +1134,12 @@
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercicio-3-classificador-knn">Exercício 3 - Classificador KNN</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Resultados</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercicio-4-metodo-gmm">Exercício 4 - Método GMM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercicio-5-janelas-de-parzen">Exercício 5 - Janelas de Parzen</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercicio-6-ml-naive-bayes-minima-distancia-de-mahalanobis-e-knn">Exercício 6 - ML, Naive Bayes, mínima distância de Mahalanobis e KNN</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Resultados</a></li>
 </ul>
 </li>
 </ul>

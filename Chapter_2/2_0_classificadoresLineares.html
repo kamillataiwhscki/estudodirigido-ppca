@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>1.2: Naive Bayes &#8212; Reconhecimento de Padrões</title>
+    <title>Capítulo 2: Classificadores lineares &#8212; Reconhecimento de Padrões</title>
   
   
   
@@ -62,11 +62,11 @@
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'Chapter_1/1_2_naive-bayes';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Chapter_2/2_0_classificadoresLineares';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="1.3: Funções discriminantes e superfíceies de decisão" href="1_3_discriminantes.html" />
-    <link rel="prev" title="1.1: Classificação MAP e ML" href="1_1_classificacao_MAP_ML.html" />
+    <link rel="next" title="2.2 Perceptron" href="2_1_perceptron.html" />
+    <link rel="prev" title="1.6 - Exercícios resolvidos" href="../Chapter_1/1_6_exercicios.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -171,21 +171,21 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="1_0_bayes.html">Capítulo 1: Teoria da decisão de Bayes</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="1_1_classificacao_MAP_ML.html">1.1: Classificação MAP e ML</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">1.2: Naive Bayes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="1_3_discriminantes.html">1.3: Funções discriminantes e superfíceies de decisão</a></li>
-<li class="toctree-l2"><a class="reference internal" href="1_4_minima-distancia.html">1.4: Classificação por mínima distância (casos particulares)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="1_5_densidade-probabilidade.html">1.5: Estimação de funções densidade de probabilidade</a></li>
-<li class="toctree-l2"><a class="reference internal" href="1_6_exercicios.html">1.6 - Exercícios resolvidos</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter_1/1_0_bayes.html">Capítulo 1: Teoria da decisão de Bayes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_1_classificacao_MAP_ML.html">1.1: Classificação MAP e ML</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_2_naive-bayes.html">1.2: Naive Bayes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_3_discriminantes.html">1.3: Funções discriminantes e superfíceies de decisão</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_4_minima-distancia.html">1.4: Classificação por mínima distância (casos particulares)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_5_densidade-probabilidade.html">1.5: Estimação de funções densidade de probabilidade</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_6_exercicios.html">1.6 - Exercícios resolvidos</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter_2/2_0_classificadoresLineares.html">Capítulo 2: Classificadores lineares</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter_2/2_1_perceptron.html">2.2 Perceptron</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter_2/2_2_errosQuadraticos.html">2.3 Estimativa baseada na soma dos erros quadráticos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter_2/2_3_SVM.html">2.4 Máquina de vetores de suporte (SVM) - versão linear</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter_2/2_4_estrategiasMulticlasse.html">2.5 Estratétegias Multiclasse</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter_2/2_5_exercicios.html">2.6 - Exercícios resolvidos</a></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Capítulo 2: Classificadores lineares</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="2_1_perceptron.html">2.2 Perceptron</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_2_errosQuadraticos.html">2.3 Estimativa baseada na soma dos erros quadráticos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_3_SVM.html">2.4 Máquina de vetores de suporte (SVM) - versão linear</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_4_estrategiasMulticlasse.html">2.5 Estratétegias Multiclasse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_5_exercicios.html">2.6 - Exercícios resolvidos</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter_3/3_0_classificadoresNaoLineares.html">Capítulo 3: Classificadores não lineares</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -263,7 +263,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FChapter_1/1_2_naive-bayes.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FChapter_2/2_0_classificadoresLineares.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -293,7 +293,7 @@
       
       
       
-      <li><a href="../_sources/Chapter_1/1_2_naive-bayes.md" target="_blank"
+      <li><a href="../_sources/Chapter_2/2_0_classificadoresLineares.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -356,7 +356,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -367,11 +369,19 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>1.2: Naive Bayes</h1>
+    <h1>Capítulo 2: Classificadores lineares</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classificadores-e-problemas-lineares">Classificadores e problemas lineares</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -382,27 +392,59 @@
                 <article class="bd-article">
                   
   <style>
-    legend {
-        font-size: 16px;
-    }
     main {
         text-align: justify;
     }
+    legend {
+        font-size: 16px;
+    }
 </style>
-<section class="tex2jax_ignore mathjax_ignore" id="naive-bayes">
-<h1>1.2: Naive Bayes<a class="headerlink" href="#naive-bayes" title="Link to this heading">#</a></h1>
-<p>Como discutido anteriormente, um padrão <span class="math notranslate nohighlight">\(\textbf{x} \in \textbf{X}\)</span> é interpretado como um evento aleatório. Entretanto uma vez que <span class="math notranslate nohighlight">\(\textbf{X}\)</span> se refere a um espaço <span class="math notranslate nohighlight">\(\textit{n}\)</span>-dimensional qualquer, é possível reinterpretar <span class="math notranslate nohighlight">\(\textbf{x}\)</span> como <span class="math notranslate nohighlight">\(\textit{n}\)</span> para eventos aleatórios <span class="math notranslate nohighlight">\(x_{1},..., x_{n}\)</span>, os quais podem, ou não, ser independentes entre si.
-Nas diversas aplicações envolvendo classificação ou regressão de dados, o estabelecimento de modelos que não levem em consideração as estruturas de correlação entre tais variáveis pode proporcionar resultados inadequados. No entanto, um modelo “ingênuo” admite <span class="math notranslate nohighlight">\(x_{1},..., x_{n}\)</span> independentes entre si, mesmo que não o sejam, e admite que contribuem igualmente para o resultado. Sob essa condição, têm-se</p>
-<div align="center">
+<section class="tex2jax_ignore mathjax_ignore" id="capitulo-2-classificadores-lineares">
+<h1>Capítulo 2: Classificadores lineares<a class="headerlink" href="#capitulo-2-classificadores-lineares" title="Link to this heading">#</a></h1>
+<p>Os classificadores lineares têm como princípio a separação de classes por meio de funções discriminantes, que são expressas como uma combinação linear entre coeficientes e as características dos padrões. Esses classificadores se destacam por sua simplicidade e eficiência computacional. A definição dos coeficientes, conhecidos como “pesos”, varia de acordo com o método utilizado. No entanto, todos compartilham o mesmo objetivo: encontrar a melhor configuração possível para realizar a classificação com precisão.</p>
+<section id="classificadores-e-problemas-lineares">
+<h2>Classificadores e problemas lineares<a class="headerlink" href="#classificadores-e-problemas-lineares" title="Link to this heading">#</a></h2>
+<p>Pode-se definir um classificador como linear desde que o processo de discriminação das classes abrangidas pelo problema seja conduzida através de <span class="math notranslate nohighlight">\(\textbf{superfícies de decisão lineares}\)</span>, ou seja, a decisão sobre a qual classe um dado pertence é feita com base em uma combinação linear de suas características.</p>
+<p>Uma superfície de decisão linear consiste no lugar geométrico que torna nula uma função discriminante linear. Genericamente, uma função linear é dada por:</p>
+<div align=center>
 <p><span class="math notranslate nohighlight">\(\begin{equation}
-    p(\textbf{x}|ω_{i}) = p(x_{1},\ldots, x_{n}|ω_{i}) = p(x_{1}|ω_{i})p(x_{2}|ω_{i})...p(x_{n}|ω_{i}) \tag{2.12}
+g(\textbf{x})=\textbf{w}^{T}\textbf{x} + 𝜔_{0} \tag{2.1}
 \end{equation}\)</span> </div></p>
-<p>Sendo assim, a regra de decisão estabelecida na Equação 2.2 torna-se equivalente a:</p>
+<p>em que <span class="math notranslate nohighlight">\(\textbf{x}\)</span>, <span class="math notranslate nohighlight">\(\textbf{w} \in \chi ⊆ \mathbb{R}^{n} \)</span> e <span class="math notranslate nohighlight">\(𝜔_{0} \in \mathbb{R}\)</span>.</p>
+<p>Cabe observar que a expansão de <span class="math notranslate nohighlight">\(\textbf{w}^{T}\textbf{x} + 𝜔_{0}\)</span> gera uma combinação linear, e ainda, <span class="math notranslate nohighlight">\(\textbf{w}^{T}\textbf{x}\)</span> corresponde ao produto interno entre <span class="math notranslate nohighlight">\(\textbf{w}\)</span> e <span class="math notranslate nohighlight">\(\textbf{x}^{1}\)</span>, sendo os dois organizados como vetores colunas, com <span class="math notranslate nohighlight">\(\textbf{w}\)</span> transposto (<span class="math notranslate nohighlight">\(\textbf{w}^{T}\)</span>).</p>
+<p>A fim de exibir determinadas características e relações relevantes a respeito das superfícies de decisão geradas por <span class="math notranslate nohighlight">\(g(\textbf{x})\)</span>, considere o espaço vetorial formado por vetores de duas dimensões, <span class="math notranslate nohighlight">\(\mathbb{R}^{2}\)</span>, como o espaço de atributos. Por sua vez, com o intuito de reforçar o entendimento, a Figura 2.1 apoia esta discussão.</p>
 <div align="center">
+<p><img alt="figura21" src="../_images/lineares_figura22.png" /> <legend>Figura 2.1 - Características de uma superfície de decisão linear.</p>
+</legend> </div>
+<p>A superfície de decisão corresponde a um subconjunto de vetores <span class="math notranslate nohighlight">\(\textbf{x}\)</span> no espaço de atributos que torna <span class="math notranslate nohighlight">\(g(\textbf{x})=0\)</span>. Ao tomar <span class="math notranslate nohighlight">\(\textbf{x}_{1}\)</span> e <span class="math notranslate nohighlight">\(\textbf{x}_{2}\)</span> sobre a superfície de decisão, pode-se verificiar que:</p>
+<div align=center>
 <p><span class="math notranslate nohighlight">\(\begin{equation}
-    (\textbf{x},ω_{j}) \leftrightarrow arg_{ω_{j}\inΩ} max \prod_{i=1}^{n} p(x_{i}|ω_{j}) \tag{2.13}
+\textbf{w}^{T}\textbf{x} + 𝜔_{0} = \textbf{w}^{T}\textbf{x}_{2} + 𝜔_{0} \Leftrightarrow \textbf{w}^{T}(\textbf{x}_{1}-\textbf{x}_{2})=0
 \end{equation}\)</span> </div></p>
-<p>O modelo Naive Bayes simplifica problemas de classificação ao assumir que todas as variáveis são condicionalmente independentes segundo a classe. A simplificação reduz significativamente a complexidade do modelo, pois requer o cálculo de apenas uma probabilidade para cada variável, em vez de considerar todas as combinações possíveis. Como resultado, o Naive Bayes é computacionalmente eficiente e oferece bom desempenho em tamanhos de amostra pequenos.</p>
+<p>levando a concluir que <span class="math notranslate nohighlight">\(\textbf{w}\)</span> é ortogonal à superfície de decisão linear, pois <span class="math notranslate nohighlight">\(\textbf{x}_{1}-\textbf{x}_{2}\)</span> pode ser admitido como um vetor que determina a superfície de decisão (neste caso uma reta) e a ortogonalidade mencionada decorre do produto interno nulo entre <span class="math notranslate nohighlight">\(\textbf{w}\)</span> e o vetor <span class="math notranslate nohighlight">\(\textbf{x}_{1}-\textbf{x}_{2}\)</span>.</p>
+<p>Considerando agora outros dois vetores <span class="math notranslate nohighlight">\(\textbf{x}_{3}=(x_{31},0)\)</span> e <span class="math notranslate nohighlight">\(\textbf{x}_{4}=(0,x_{42})\)</span> que também ocupam a superfície de decisão, salvo detalhe que <span class="math notranslate nohighlight">\(\textbf{x}_{3}\)</span> e <span class="math notranslate nohighlight">\(\textbf{x}_{4}\)</span> interceptam o primeiro e segundo eixo do espaço de atributos, respectivamente. Com isso:</p>
+<div align=center>
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+g(\textbf{x}_{3})=\textbf{w}^{T}\textbf{x}_{3} + 𝜔_{0} = 0 \Rightarrow 𝜔_{1}x_{31} + 𝜔_{2}0 + 𝜔_{0} = x_{31} = -\frac{𝜔_{0}}{𝜔_{1}}
+\end{equation}\)</span> </div></p>
+<div align=center>
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+g(\textbf{x}_{3})=\textbf{w}^{T}\textbf{x}_{4} + 𝜔_{0} = 0 \Rightarrow 𝜔_{1}0 + 𝜔_{2}x_{42} + 𝜔_{0} = x_{42} = -\frac{𝜔_{0}}{𝜔_{2}}
+\end{equation}\)</span> </div></p>
+<p>Esse resultado permite concluir que a distância entre a superfície de decisão e a origem do espaço de atributos equivale a <span class="math notranslate nohighlight">\(\frac{|𝜔_{0}|}{||\textbf{w}||}\)</span>. Ainda, com base no mesmo conceito de distância entre ponto e reta, é possível concluir que o módulo de <span class="math notranslate nohighlight">\(g(\textbf{x})\)</span> expressa a distância entre <span class="math notranslate nohighlight">\(\textbf{x}\)</span> e a superfície de decisão.</p>
+<p>Além da noção de distância entre os padrões/vetores e a superfície de decisão, é de extrema importância o valor do retorno gerado pela função discriminante. Ao tomar um <span class="math notranslate nohighlight">\(\textbf{x}\)</span> qualquer, tal que <span class="math notranslate nohighlight">\(g(\textbf{x}) &gt; 0\)</span>, pode-se concluir que tal vetor está afastado da superfície <span class="math notranslate nohighlight">\(g(\textbf{x})=0\)</span> no mesmo sentido do vetor <span class="math notranslate nohighlight">\(\textbf{w}\)</span>. De forma similar, <span class="math notranslate nohighlight">\(g(\textbf{x}) &lt; 0\)</span> indica que o vetor ortogonal à superfície de decisão com extremidade em <span class="math notranslate nohighlight">\(\textbf{x}\)</span> possui sentido oposto a <span class="math notranslate nohighlight">\(\textbf{w}\)</span>. Esta observação a respeito do sinal de <span class="math notranslate nohighlight">\(g(\textbf{x})\)</span> caracteriza a regra de decisão de um classificador linear, usualmente expressa por:</p>
+<div align=center>
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+g(\textbf{x})=\textbf{w}^{T}\textbf{x} + 𝜔_{0}  \left \{ \begin{matrix} &gt;0 ⇒ \textbf{x} \in 𝜔_{1} \\ &lt; 0 ⇒ \textbf{x} \in 𝜔_{2} \end{matrix} \right. \tag{2.2}
+\end{equation}\)</span> </div></p>
+<p>De acordo com a equação acima, verifica-se que um classificador linear possibilita a distinção entre duas classes somente.</p>
+<p>Antes de prosseguir os estudos sobre os classificadores lineares, é importante que se saiba a diferença entre <span class="math notranslate nohighlight">\(\textit{classificadores lineares}\)</span> e <span class="math notranslate nohighlight">\(\textit{problemas linearmente separáveis}\)</span>. Conforme já definido, os classificadores lineares são estruturados segundo funções discriminantes com forma equivalente à apresentada na Equação 2.1. Por outro lado, um problema de classificação é considerado linearmente separável desde que seja possível obter, pelo menos, uma superfície de decisão linear que distinguia dois tipos de objetos cujas classes sejam conhecidas de antemão (Figura 2.2). Isso permite concluir que a capacidade de separação através de uma superfície linear é uma propriedade dos dados a serem classificados e não do classificador em si.</p>
+<div align="center"> 
+<p><img alt="figura21" src="../_images/figura22-linearmenteseparavel.png" /> <legend>Figura 2.2 - Exemplos de casos de separabilidade. Para dados linearmente separáveis, é garantida a existência de uma superfície linear capaz de particionar o espaço de atributos em dois subconjuntos de classes distintas, sendo esta afirmação não garantida para o caso não linearmente separável.</p>
+</legend> </div>
+</section>
+<div class="toctree-wrapper compound">
+</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -418,7 +460,7 @@ Nas diversas aplicações envolvendo classificação ou regressão de dados, o e
         },
         kernelOptions: {
             name: "python3",
-            path: "./Chapter_1"
+            path: "./Chapter_2"
         },
         predefinedOutput: true
     }
@@ -436,20 +478,20 @@ Nas diversas aplicações envolvendo classificação ou regressão de dados, o e
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="1_1_classificacao_MAP_ML.html"
+       href="../Chapter_1/1_6_exercicios.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">1.1: Classificação MAP e ML</p>
+        <p class="prev-next-title">1.6 - Exercícios resolvidos</p>
       </div>
     </a>
     <a class="right-next"
-       href="1_3_discriminantes.html"
+       href="2_1_perceptron.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">1.3: Funções discriminantes e superfíceies de decisão</p>
+        <p class="prev-next-title">2.2 Perceptron</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -459,6 +501,22 @@ Nas diversas aplicações envolvendo classificação ou regressão de dados, o e
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classificadores-e-problemas-lineares">Classificadores e problemas lineares</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

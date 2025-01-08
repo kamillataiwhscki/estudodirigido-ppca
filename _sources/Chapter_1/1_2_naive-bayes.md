@@ -15,7 +15,7 @@ Nas diversas aplicações envolvendo classificação ou regressão de dados, o e
 <div align="center">
 
 $\begin{equation}
-    p(\textbf{x}|ω_{i}) = p(x_{1},..., x_{n}|ω_{i}) = p(x_{1}|ω_{i})p(x_{2}|ω_{i})...p(x_{n}|ω_{i}) \tag{2.12}
+    p(\textbf{x}|ω_{i}) = p(x_{1},\ldots, x_{n}|ω_{i}) = p(x_{1}|ω_{i})p(x_{2}|ω_{i})...p(x_{n}|ω_{i}) \tag{2.12}
 \end{equation}$ </div>
 
 Sendo assim, a regra de decisão estabelecida na Equação 2.2 torna-se equivalente a:

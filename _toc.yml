@@ -12,3 +12,26 @@ chapters:
     - file: Chapter_1/1_4_minima-distancia
     - file: Chapter_1/1_5_densidade-probabilidade
     - file: Chapter_1/1_6_exercicios
+- file: Chapter_2/2_0_classificadoresLineares
+  sections:
+    - file: Chapter_2/2_1_perceptron
+    - file: Chapter_2/2_2_errosQuadraticos
+    - file: Chapter_2/2_3_SVM
+    - file: Chapter_2/2_4_estrategiasMulticlasse
+    - file: Chapter_2/2_5_exercicios
+- file: Chapter_3/3_0_classificadoresNaoLineares
+  sections:
+    - file: Chapter_3/3_1_perceptronBP
+    - file: Chapter_3/3_4_SVM_kernel
+    - file: Chapter_3/3_5_arvoresDecisao
+    - file: Chapter_3/3_6_exercicios
+- file: Chapter_4/4_0_combinacaoClassificadores
+  sections:
+    # - file: Chapter_4/4_1_conceitoBayes
+    - file: Chapter_4/4_2_votacaoMaioria
+    - file: Chapter_4/4_3_stacking
+    - file: Chapter_4/4_4_bagging
+    - file: Chapter_4/4_5_adaBoost
+    - file: Chapter_4/4_6_florestaAleatoria
+    # - file: Chapter_4/4_7_exeperimentoComp
+    # - file: Chapter_4/4_8_exercicios

@@ -1,0 +1,656 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>2.2 Perceptron &#8212; Reconhecimento de Padrões</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Chapter_2/2_1_perceptron';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Capítulo 2: Classificadores lineares" href="2_0_classificadoresLineares.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logobg.png" class="logo__image only-light" alt="Reconhecimento de Padrões - Home"/>
+    <img src="../_static/logobg.png" class="logo__image only-dark pst-js-only" alt="Reconhecimento de Padrões - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Apresentação
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter_1/1_0_bayes.html">Capítulo 1: Teoria da decisão de Bayes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_1_classificacao_MAP_ML.html">1.1: Classificação MAP e ML</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_2_naive-bayes.html">1.2: Naive Bayes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_3_discriminantes.html">1.3: Funções discriminantes e superfíceies de decisão</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_4_minima-distancia.html">1.4: Classificação por mínima distância (casos particulares)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_5_densidade-probabilidade.html">1.5: Estimação de funções densidade de probabilidade</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_6_exercicios.html">1.6 - Exercícios resolvidos</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="2_0_classificadoresLineares.html">Capítulo 2: Classificadores lineares</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">2.2 Perceptron</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FChapter_2/2_1_perceptron.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/Chapter_2/2_1_perceptron.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>2.2 Perceptron</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perceptron-sequencial">Perceptron sequencial</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aplicacao-sobre-dados-nao-linearmente-separaveis">Aplicação sobre dados não linearmente separáveis</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <style>
+    legend {
+        font-size: 16px;
+    }
+    main {
+        text-align: justify;
+    }
+</style>
+<section class="tex2jax_ignore mathjax_ignore" id="perceptron">
+<h1>2.2 Perceptron<a class="headerlink" href="#perceptron" title="Link to this heading">#</a></h1>
+<p>O Perceptron é considerado um marco central no desenvolvimeto da Inteligência Atificial como área de pesquisa, sendo que as áreas de reconhecimento de padrões e aprendizado de máquina foram diretamente beneficiadas pelos conceitos derivaodos deste modelo. A representação genérica do Perceptron é inspirado no modelo de neurônio proposto por Warren McCulloch e Walter Pitts [McCulloch and Pitts, 1943]. A Figura 2.3 ilustra tal modelo. Segundo esta representação, é possível observar cico elementos básicos:</p>
+<ul class="simple">
+<li><p>(i) à esquerda, uma camada composta por <span class="math notranslate nohighlight">\(n\)</span> receptores, responsáveis por receber as informações sinápticas <span class="math notranslate nohighlight">\(x_{1}...,x_{n}\)</span>;</p></li>
+<li><p>(ii) um conjunto de conexões sinápticas, que pondera as informações de entrada segundo os pesos <span class="math notranslate nohighlight">\(w_{1}...,w_{n}\)</span>;</p></li>
+<li><p>(iii) uma entrada constante e igual a +1, ponderada por <span class="math notranslate nohighlight">\(w_{0}\)</span>;</p></li>
+<li><p>(iv) no núcleo do neurônio, um concentrador (i.e., uma soma <span class="math notranslate nohighlight">\(∑\)</span>) dis sinais de entrada que induz um campo sináptico e repassa para;</p></li>
+<li><p>(v) a função de ativação <span class="math notranslate nohighlight">\(g\)</span>, a qual é responsável por gerar uma resposta.</p></li>
+</ul>
+<div align="center">
+<p><img alt="figura1" src="../_images/perceptron23.png" /> <legend>Figura 2.3 - O modelo Perceptron.</legend> </div></p>
+<p>Com base nos elementos acima descritos, é formalizado um método capaz de realizar a classificação de padrões. Para tal, considere um problema linearmente separável que envolve duas classes e no qual é conhecido um conjunto de observações <span class="math notranslate nohighlight">\(D = \{(\textbf{x}_{i},y_{i})\in \textit{X} \times \textit{Y}:i=1,...,m\}\)</span>. Segundo esta notação, temos que <span class="math notranslate nohighlight">\(\textbf{x}_{i}\)</span> está associado exclusimamente à <span class="math notranslate nohighlight">\(𝜔_{1}\)</span> ou <span class="math notranslate nohighlight">\(𝜔_{2}\)</span> quando <span class="math notranslate nohighlight">\(y_{i}\)</span> equivale a +1 ou -1, respectivamente.</p>
+<p>Para fins de simplicação das discussões, considere ainda que o problema de classificação será conduzido sobre um espaço de atributos estendido, isto é, <span class="math notranslate nohighlight">\(\textbf{x} = [1,x_{1},...,x_{n}]^{T} \in χ \subseteq \mathbb{R}^{n+1}\)</span>, fazendo com que as funções discriminantes sejam reduzidas à forma:</p>
+<div align="center">
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+g(\textbf{x}) = \textbf{w}^{T} \textbf{x} \tag{2.3}
+\end{equation}\)</span></p>
+<p>com <span class="math notranslate nohighlight">\(\textbf{w}=[𝜔_{0},𝜔_{1},...,𝜔_{n}]^{T}\)</span>. </div></p>
+<p>Nessas condições, o método Perceptron busca pelo <span class="math notranslate nohighlight">\(\textbf{w}\)</span> que proporciona <span class="math notranslate nohighlight">\(g(\textbf{x}_{i})&gt;0\)</span>, se <span class="math notranslate nohighlight">\(y_{i} = +1\)</span>, e <span class="math notranslate nohighlight">\(g(\textbf{x}_{i})&lt;0\)</span> se <span class="math notranslate nohighlight">\(y_{i} = -1\)</span>, para <span class="math notranslate nohighlight">\(i=1,...,m\)</span>. Uma solução para este problema pode ser alcançanda através da minimização da seguinte função:</p>
+<div align="center">
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+J(\textbf{w}) = \sum_{i=1}^{m} (δ(\textbf{x}_{i},\textbf{w})\textbf{w}^{T}\textbf{x}_{i}); δ(\textbf{x}_{i};\textbf{w}) = \left \{ \begin{matrix} -1, \ se \  y_{i} = +1 \ e \ \textbf{w}^{T} \textbf{x}_{i} &lt; 0 \\ +1, \ se \ y_{i} = -1 \ e \ \textbf{w}^{T} \textbf{x}_{i} &gt; 0 \\ 0, \ caso \ contrário \ \end{matrix}\right. \tag{2.4}
+\end{equation}\)</span> </div></p>
+<p>Vale notar que <span class="math notranslate nohighlight">\(δ(\textbf{x};\textbf{w})\)</span> atua como “função penalizadora” no processo de treinamento do Perceptron, ou seja, essa função ajusta o modelo, de forma a minimizar o erro ao final do treinamento. A aplicação da pena ocorre de acordo com o parâmetro atual \textbf{w}. Consequentemente, teremos <span class="math notranslate nohighlight">\(J(\textbf{w})=0\)</span> quando obtivemos <span class="math notranslate nohighlight">\(\textbf{w}\)</span> tal que <span class="math notranslate nohighlight">\(δ(\textbf{x}_{i},\textbf{w})=0\)</span> para <span class="math notranslate nohighlight">\(i=1,...,m\)</span>, o que implica nenhuma penalização por erro de classificação durante o processo de treinamento.</p>
+<p>A minimização de <span class="math notranslate nohighlight">\(J(\textbf{w})\)</span> pode ser realizada com uso do algoritmo Gradiente Descendente. Através desta estratégia iterativa, são obtidas atualizações sucessivas para <span class="math notranslate nohighlight">\(\textbf{w}\)</span>. Denotando por <span class="math notranslate nohighlight">\(\textbf{w}^{(k)}\)</span> a k-ésima aproximação obtida para <span class="math notranslate nohighlight">\(\textbf{w}\)</span>, tem-se:</p>
+<div align="center">
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+\textbf{w}^{(k+1)}=\textbf{w}^{(k)}-η_{k}\frac{\partial J(\textbf{w})}{\partial\textbf{w}}\left|\begin{matrix} _{\textbf{w}=\textbf{w}^{(k)}}\end{matrix}\right. \tag{2.5}
+\end{equation}\)</span> </div></p>
+<p>em que <span class="math notranslate nohighlight">\(η_{k} \in\mathbb{R}_{+}\)</span> é um fator de correção que controla a atualização de <span class="math notranslate nohighlight">\(\textbf{w}^{(k)}\)</span>. Com relação a <span class="math notranslate nohighlight">\(\textbf{w}^{(0)}\)</span>, os valores das componentes podem ser inicializados de forma aleatória ou mesmo nula.</p>
+<p>Uma vez que <span class="math notranslate nohighlight">\(\frac{\partial J(\textbf{w})}{\partial\textbf{w}} = \frac{\partial (\sum_{i=1}^{m}(δ(\textbf{x}_{i};\textbf{w})\textbf{w}^{T}\textbf{x}_{i}))}{\partial\textbf{w}} = \sum_{i=1}^{m}(δ(\textbf{x}_{i};\textbf{w})\textbf{x}_{i} \)</span>, a Equação 3 é reescrita por:</p>
+<div align="center">
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+\textbf{w}^{(k+1)}=\textbf{w}^{(k)}-η_{k}\sum_{i=1}^{m}(δ(\textbf{x}_{i};\textbf{w})\textbf{x}_{i} \tag{2.6}
+\end{equation}\)</span> </div></p>
+<p>Após um número finito de iterações, o algortimo Perceptron deve convergir. Cabe ressaltar que a convergência ocorrerá desde que a sequência de fatores <span class="math notranslate nohighlight">\(\{ η_{k}\}_{k=0}^{∞}\)</span> seja tal que <span class="math notranslate nohighlight">\(\lim_{k→∞}\sum_{j=0}^{k}η_{j}^{2} &lt; ∞\)</span> e <span class="math notranslate nohighlight">\(\lim_{k→∞}\sum_{j=0}^{k}η_{j} → ∞\)</span>. Uma escolha usual para este fator, e que respeita as condições apontadas, é <span class="math notranslate nohighlight">\(η_{k}=\frac{z}{k+1}\)</span>, com <span class="math notranslate nohighlight">\(z&gt;1\)</span>. Por fim, uma vez alcançada a convergência, o processo de classificação é dado de modo similar à regra estabelecida na equação 2.2.</p>
+<p>Como consequência do comportamento de <span class="math notranslate nohighlight">\(δ(\cdot;\cdot)\)</span>, a função objetivo que caracteriza o treinamento do Perceptron torna-se linear por partes. Este comportamento possibilita que diferentes configurações de valores (i.e., pares da região central) de pesos sinápticos proporcionem a minimização de função objetivo.</p>
+<p>A Figura 2.4 apresenta a aplicação do algoritmo Perceptron sobre um conjunto de dados linearmente separáveis. As superfícies de decisão obtidas ao longo das iterações são identificadas pelas retas em tons claros no gráfico da esquerda, para as quais é observado um movimento de convergência em direção a uma solução. O resultado final de separação é apresentado no gráfico da direita.</p>
+<div align="center">
+<p><img alt="figura1" src="../_images/perceptron24.png" /> <legend>Figura 2.4 - Processo de ajuste da superfície de decisão pelo algoritmo Perceptron (esquerda) e separação final dos dados (direita).</p>
+</legend> </div>
+<p>Uma implementação do método Perceptron, segundo os elementos introduzidos nesta seção, é dada pela função <span class="math notranslate nohighlight">\(\mathbb{perceptron}\)</span> apresentada no Código 2.1. Nesta implementação, são verificadas outras duas funções <span class="math notranslate nohighlight">\(\mathbb{eta\_update}\)</span> e <span class="math notranslate nohighlight">\(\mathbb{delta\_check}\)</span>, responsáveis pela atualização da taxa de aprendizado e pelo cálculo de <span class="math notranslate nohighlight">\(δ(\cdot;\textbf{w})\)</span>. Ainda, uma vez obtido <span class="math notranslate nohighlight">\(\textbf{w}\)</span>, a predição do indicador de classe (i.e., +1 ou -1) pode ser efetuada com uso da função (<span class="math notranslate nohighlight">\(\mathbb{predictor\_perceptron}\)</span>). Tais funções estão contidas no Código 2.2.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Importações</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Código 2.1</span>
+
+<span class="k">def</span> <span class="nf">perceptron</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+  <span class="n">dim</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1">#Dimensão do espaço de atributos</span>
+  <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#Contador de iteração</span>
+  <span class="n">z</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1">#Usado no ajuste da taxa de aprendizado</span>
+
+  <span class="c1">#Inicializa aleatoriamente w no espaço estendido</span>
+  <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">dim</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="c1">#Distribuição N(0,1)</span>
+
+<span class="c1">#Inicialização da taxa de aprendizado</span>
+  <span class="n">eta</span> <span class="o">=</span> <span class="n">eta_update</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="n">k</span><span class="p">)</span>
+
+  <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="c1">#Contabiliza desvio dos casos errados</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>       <span class="c1">#Conta casos errados</span>
+    <span class="k">for</span> <span class="n">xi</span><span class="p">,</span> <span class="n">yi</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+      <span class="k">if</span> <span class="n">delta_check</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span><span class="n">yi</span><span class="p">,</span><span class="n">w</span><span class="p">)</span> <span class="o">*</span> <span class="n">w</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="n">xi</span><span class="p">)))</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">S</span> <span class="o">+=</span> <span class="n">delta_check</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span><span class="n">yi</span><span class="p">,</span><span class="n">w</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="n">xi</span><span class="p">))</span>
+      <span class="k">if</span> <span class="n">delta_check</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span><span class="n">yi</span><span class="p">,</span><span class="n">w</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span> <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="c1">#Atualização das variáveis</span>
+
+    <span class="n">w0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="c1">#Faz uma cópia de w para comparação</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">w</span> <span class="o">-</span> <span class="n">eta</span> <span class="o">*</span> <span class="n">S</span> <span class="c1">#Atualiza w</span>
+
+    <span class="c1">#Reinicia a taxa de aprendizado caso não convirja</span>
+    <span class="c1">#Força um retorno de &quot;eta&quot; para 1</span>
+
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">w0</span><span class="o">-</span><span class="n">w</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="o">**-</span><span class="mi">4</span><span class="p">:</span> <span class="n">z</span> <span class="o">=</span> <span class="n">k</span><span class="o">+</span><span class="mi">1</span>
+
+    <span class="n">eta</span> <span class="o">=</span> <span class="n">eta_update</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="n">k</span><span class="p">)</span> <span class="c1">#Atualização do &quot;eta&quot;</span>
+
+    <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">count</span><span class="o">==</span><span class="mi">0</span><span class="p">):</span> <span class="k">break</span> <span class="c1">#Obteve a separação linear!</span>
+  <span class="k">return</span> <span class="n">w</span> <span class="c1">#O retorno consiste no valor de pesos w</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Código 2.2</span>
+
+<span class="c1">#Expressão usada na utilização da taxa de aprendizado</span>
+
+<span class="k">def</span> <span class="nf">eta_update</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="n">k</span><span class="p">):</span>
+  <span class="k">return</span> <span class="n">z</span><span class="o">/</span><span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1">#Verificação de erro/acerto e respectiva penaização</span>
+
+<span class="k">def</span> <span class="nf">delta_check</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">w</span><span class="p">):</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="n">x</span><span class="p">)))</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span> <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="n">x</span><span class="p">)))</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span> <span class="k">return</span> <span class="o">+</span><span class="mi">1</span>
+  <span class="k">return</span> <span class="mi">0</span>
+<span class="c1">#Função de predição da classe de x segundo o vetor w</span>
+<span class="k">def</span> <span class="nf">perceptron_predict</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">w</span><span class="p">):</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="n">x</span><span class="p">)))</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">):</span> <span class="k">return</span> <span class="mi">1</span>
+  <span class="k">else</span><span class="p">:</span> <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+</pre></div>
+</div>
+<section id="perceptron-sequencial">
+<h2>Perceptron sequencial<a class="headerlink" href="#perceptron-sequencial" title="Link to this heading">#</a></h2>
+<p>Segundo as discussões discutidas acima, o algoritmo Perceptron realiza a busca por <span class="math notranslate nohighlight">\(\textbf{w}\)</span> de forma iterativa. Diante da Equação 2.6, é possível verificar que a correção de <span class="math notranslate nohighlight">\(\textbf{w}\)</span> é guiada por <span class="math notranslate nohighlight">\(\sum_{i=1}^{m}δ(\textbf{x}_{i};\textbf{w})\textbf{x}_{i}\)</span> após a aplicação da função <span class="math notranslate nohighlight">\(δ(⋅;⋅)\)</span> sobre todos os <span class="math notranslate nohighlight">\(\textbf{x}_{i}\)</span> em <span class="math notranslate nohighlight">\(D\)</span>. Como variante desta formulação original, o processo de atualização pode ser conduzido ao passo que cada observação é apresentada, ou seja:</p>
+  <div align="center">
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+  \textbf{w}^{(k+1)} = \textbf{w}^{(k)} - η_{k}δ(\textbf{x}_{i};\textbf{w}^{(k)}) \tag{2.7}
+  \end{equation}\)</span> </div></p>
+<p>Nesta proposta, a atualização de <span class="math notranslate nohighlight">\(\textbf{w}^{(k+1)}\)</span> ocorre somente quando a função <span class="math notranslate nohighlight">\(δ(\textbf{x}_{i};\textbf{w}^{(k)})\)</span>, diante da parametrização atual representada por <span class="math notranslate nohighlight">\(\textbf{w}^{(k)}\)</span>, identifica um erro de classificação, já que a parcela <span class="math notranslate nohighlight">\(η_{k}δ(\textbf{x}_{i};\textbf{w}^{(k)})\)</span> se torna nula diante das classes apresentadas sucessivamente através de ciclos. Com relação à inicialização <span class="math notranslate nohighlight">\(\textbf{w}^{(0)}\)</span> e atualização de <span class="math notranslate nohighlight">\(η_{k}\)</span>, podem ser adotados os mesmos critérios antes discutidos.</p>
+<p>Analogamente à seção anterior, a Figura 2.5 apresenta o processo de obtenção da superfície de decisão através do algoritmo Perceptron, porém atualizado de forma sequencial. Em comparação com a versão anterior, nota-se um menor número de iterações exigidas, pois há uma menor concentração de superfícies testadas (representadas pelas linhas claras e finas). No entanto, é válido ressaltar que este é um comportamento que pode estar relacionado à disposição dos padrões.</p>
+<div align="center">
+<p><img alt="figura1" src="../_images/perceptron25.png" /> <legend>Figura 2.5 - Processo de ajuste da  superfície de decisão pelo algoritmo Perceptron, baseado em ajustes sequenciais (esquerda) e separação final dos dados (direita).</legend> </div></p>
+</section>
+<section id="aplicacao-sobre-dados-nao-linearmente-separaveis">
+<h2>Aplicação sobre dados não linearmente separáveis<a class="headerlink" href="#aplicacao-sobre-dados-nao-linearmente-separaveis" title="Link to this heading">#</a></h2>
+<p>Apesar da suposição inicial de separabilidade linear dos dados, sobre a qual o algoritmo Perceptron foi construído, sua aplicação sobre dados não linearmente separáveis é possível na condição de tolerância à ocorrência de erros de classificação. Para esse fim, é adotada uma estratégia de relaxamento até que a convergência seja atingida.</p>
+<!-- As seguintes etapas abrangem este processo:
+
+Inicialize os contadores $q$, $q^{*}$, $k←0$
+Inicialize $\textbf{w}^{(0)}$ e $\textbf{w}^{*}$
+Enquanto não convergir (erro nulo ou máximo de iterações), repita:
+
+<div align="center">
+  
+Aplique $g(\textbf{x})=\textbf{w}^{(k)^{T}}$ sobre cada $\textbf{x}_{i}$ em $D$
+
+  $q ←$ número de acertos utilizando $\textbf{w}^{(k)}$
+
+  Se $q > q^{*}$ então:
+
+  $q^{*} ← q$
+
+  $\textbf{w}^{*} ← \textbf{w}^{(k)}$
+
+k $←$ k+1
+
+$\textbf{w}^{(k+1)} - η_{k}δ(\textbf{x}_{i};\textbf{w}_{(k)})$
+
+Atualize k $←$ k + 1 </div> -->
+<p>O desempenho desta estratégia é verificado através da aplicação mostrada na Figura 2.6. Para dados linearmente separáveis, tal estratégia é reduzida à versão original do algoritmo. Por outro lado, na condição de dados não linearmente separáveis, o algoritmo termina ao atingir um número máximo de iterações, e a solução é dada pela configuração de <span class="math notranslate nohighlight">\(\textbf{w}\)</span> que proporciona maior acurácia entre todos os testes efetuados.</p>
+<div align="center">
+<p><img alt="figura6" src="../_images/figura26.png" /> <legend> Figura 2.6 - Aplicação do algoritmo Perceptron, baseado na estratégia de relaxamento, sobre dados (a) linearmente separáveis e (b) não linearmente separáveis..</legend> </div></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Chapter_2"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="2_0_classificadoresLineares.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Capítulo 2: Classificadores lineares</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perceptron-sequencial">Perceptron sequencial</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aplicacao-sobre-dados-nao-linearmente-separaveis">Aplicação sobre dados não linearmente separáveis</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kamilla Taiwhscki
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

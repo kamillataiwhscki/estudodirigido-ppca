@@ -139,8 +139,8 @@ $\begin{equation}
 (\textbf{x},ω_{2}) \Leftrightarrow  p(\textbf{x}|ω_{1}) > p(\textbf{x}|ω_{1}) \frac{λ_{12}}{λ_{21}}
 \end{equation}$ </div>
 
-Cabe notar que, ao admitir $λ_{12} = λ_{21}$, as regras desenvolvidas recaem no caso de minimização do erro de classificação, abordado anteriormente. Por outro lado, para $λ_{21} > λ_{12}$, tem-se como efeito colateral uma maior tendência sobre a escolha de $ω_{2}$ em comparação a $ω_{1}$. Naturalmente, ao passo que a diferença $λ_{21} - λ_{12}$ aumenta, maior é a tendenciosidade revelada.
+Cabe notar que, ao admitir $λ_{12} = λ_{21}$, as regras desenvolvidas recaem no caso de minimização do erro de classificação, abordado anteriormente. Por outro lado, para $λ_{21} > λ_{12}$, tem-se como efeito colateral uma maior tendência sobre a escolha de $ω_{2}$ em comparação a $ω_{1}$. Naturalmente, ao passo que a diferença $λ_{21} - λ_{12}$ aumenta, maior é a tendenciosidade revelada. 
 
 
-[^1]: Processo de inferir características de uma população por meio da observação de uma amostra. Inserir citação
+[^1]: Processo de inferir características de uma população por meio da observação de uma amostra.
 [^2]: Medida utilizada para comparar a probabilidade de observação de um dado sob diferentes hipóteses.

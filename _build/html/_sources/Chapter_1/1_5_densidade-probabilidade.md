@@ -161,7 +161,7 @@ $\begin{equation}
 
 sendo $\rho$ a $k$-ésima menor distância observada entre $\textbf{x}$ e os elementos de $D$.
 
-Considerando o conjunto de observações $D = \{ (x_i, y_i) : i = 1, \ldots, m \}$, no qual $x_i$ está associado a uma classe de \Omega = \{ w_1, \ldots, w_c \} através de indidcadores de classe $y_i \in Y = 1,\ldots,c$. A partir desse conjunto é possível estimar densidades de probabilidade para cada uma das classes isoladamente através da seguinte expressão:
+Considerando o conjunto de observações $D = \{ (x_i, y_i) : i = 1, \ldots, m \}$, no qual $x_i$ está associado a uma classe de $\Omega = \{ w_1, \ldots, w_c \}$ através de indidcadores de classe $y_i \in Y = 1,\ldots,c$. A partir desse conjunto é possível estimar densidades de probabilidade para cada uma das classes isoladamente através da seguinte expressão:
 
 <div align="center">
 

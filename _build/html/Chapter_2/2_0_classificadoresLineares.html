@@ -1,0 +1,570 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Capítulo 2: Classificadores lineares &#8212; Reconhecimento de Padrões</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Chapter_2/2_0_classificadoresLineares';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2.2 Perceptron" href="2_1_perceptron.html" />
+    <link rel="prev" title="1.6 - Exercícios resolvidos" href="../Chapter_1/1_6_exercicios.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logobg.png" class="logo__image only-light" alt="Reconhecimento de Padrões - Home"/>
+    <img src="../_static/logobg.png" class="logo__image only-dark pst-js-only" alt="Reconhecimento de Padrões - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Apresentação
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter_1/1_0_bayes.html">Capítulo 1: Teoria da decisão de Bayes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_1_classificacao_MAP_ML.html">1.1: Classificação MAP e ML</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_2_naive-bayes.html">1.2: Naive Bayes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_3_discriminantes.html">1.3: Funções discriminantes e superfíceies de decisão</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_4_minima-distancia.html">1.4: Classificação por mínima distância (casos particulares)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_5_densidade-probabilidade.html">1.5: Estimação de funções densidade de probabilidade</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_6_exercicios.html">1.6 - Exercícios resolvidos</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Capítulo 2: Classificadores lineares</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="2_1_perceptron.html">2.2 Perceptron</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_2_errosQuadraticos.html">2.3 Estimativa baseada na soma dos erros quadráticos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_3_SVM.html">2.4 Máquina de vetores de suporte (SVM) - versão linear</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_4_estrategiasMulticlasse.html">2.5 Estratétegias Multiclasse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_5_exercicios.html">2.6 - Exercícios resolvidos</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter_3/3_0_classificadoresNaoLineares.html">Capítulo 3: Classificadores não lineares</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_3/3_1_perceptronBP.html">3.1: Perceptron multicamadas e o algoritmo <span class="math notranslate nohighlight">\(\textit{backpropagation}\)</span></a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FChapter_2/2_0_classificadoresLineares.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/Chapter_2/2_0_classificadoresLineares.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Capítulo 2: Classificadores lineares</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classificadores-e-problemas-lineares">Classificadores e problemas lineares</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <style>
+    main {
+        text-align: justify;
+    }
+    legend {
+        font-size: 16px;
+    }
+</style>
+<section class="tex2jax_ignore mathjax_ignore" id="capitulo-2-classificadores-lineares">
+<h1>Capítulo 2: Classificadores lineares<a class="headerlink" href="#capitulo-2-classificadores-lineares" title="Link to this heading">#</a></h1>
+<p>Os classificadores lineares têm como princípio a separação de classes por meio de funções discriminantes, que são expressas como uma combinação linear entre coeficientes e as características dos padrões. Esses classificadores se destacam por sua simplicidade e eficiência computacional. A definição dos coeficientes, conhecidos como “pesos”, varia de acordo com o método utilizado. No entanto, todos compartilham o mesmo objetivo: encontrar a melhor configuração possível para realizar a classificação com precisão.</p>
+<section id="classificadores-e-problemas-lineares">
+<h2>Classificadores e problemas lineares<a class="headerlink" href="#classificadores-e-problemas-lineares" title="Link to this heading">#</a></h2>
+<p>Pode-se definir um classificador como linear desde que o processo de discriminação das classes abrangidas pelo problema seja conduzida através de <span class="math notranslate nohighlight">\(\textbf{superfícies de decisão lineares}\)</span>, ou seja, a decisão sobre a qual classe um dado pertence é feita com base em uma combinação linear de suas características.</p>
+<p>Uma superfície de decisão linear consiste no lugar geométrico que torna nula uma função discriminante linear. Genericamente, uma função linear é dada por:</p>
+<div align=center>
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+g(\textbf{x})=\textbf{w}^{T}\textbf{x} + 𝜔_{0} \tag{2.1}
+\end{equation}\)</span> </div></p>
+<p>em que <span class="math notranslate nohighlight">\(\textbf{x}\)</span>, <span class="math notranslate nohighlight">\(\textbf{w} \in \chi ⊆ \mathbb{R}^{n} \)</span> e <span class="math notranslate nohighlight">\(𝜔_{0} \in \mathbb{R}\)</span>.</p>
+<p>Cabe observar que a expansão de <span class="math notranslate nohighlight">\(\textbf{w}^{T}\textbf{x} + 𝜔_{0}\)</span> gera uma combinação linear, e ainda, <span class="math notranslate nohighlight">\(\textbf{w}^{T}\textbf{x}\)</span> corresponde ao produto interno entre <span class="math notranslate nohighlight">\(\textbf{w}\)</span> e <span class="math notranslate nohighlight">\(\textbf{x}^{1}\)</span>, sendo os dois organizados como vetores colunas, com <span class="math notranslate nohighlight">\(\textbf{w}\)</span> transposto (<span class="math notranslate nohighlight">\(\textbf{w}^{T}\)</span>).</p>
+<p>A fim de exibir determinadas características e relações relevantes a respeito das superfícies de decisão geradas por <span class="math notranslate nohighlight">\(g(\textbf{x})\)</span>, considere o espaço vetorial formado por vetores de duas dimensões, <span class="math notranslate nohighlight">\(\mathbb{R}^{2}\)</span>, como o espaço de atributos. Por sua vez, com o intuito de reforçar o entendimento, a Figura 2.1 apoia esta discussão.</p>
+<div align="center">
+<p><img alt="figura21" src="../_images/lineares_figura22.png" /> <legend>Figura 2.1 - Características de uma superfície de decisão linear.</p>
+</legend> </div>
+<p>A superfície de decisão corresponde a um subconjunto de vetores <span class="math notranslate nohighlight">\(\textbf{x}\)</span> no espaço de atributos que torna <span class="math notranslate nohighlight">\(g(\textbf{x})=0\)</span>. Ao tomar <span class="math notranslate nohighlight">\(\textbf{x}_{1}\)</span> e <span class="math notranslate nohighlight">\(\textbf{x}_{2}\)</span> sobre a superfície de decisão, pode-se verificiar que:</p>
+<div align=center>
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+\textbf{w}^{T}\textbf{x} + 𝜔_{0} = \textbf{w}^{T}\textbf{x}_{2} + 𝜔_{0} \Leftrightarrow \textbf{w}^{T}(\textbf{x}_{1}-\textbf{x}_{2})=0
+\end{equation}\)</span> </div></p>
+<p>levando a concluir que <span class="math notranslate nohighlight">\(\textbf{w}\)</span> é ortogonal à superfície de decisão linear, pois <span class="math notranslate nohighlight">\(\textbf{x}_{1}-\textbf{x}_{2}\)</span> pode ser admitido como um vetor que determina a superfície de decisão (neste caso uma reta) e a ortogonalidade mencionada decorre do produto interno nulo entre <span class="math notranslate nohighlight">\(\textbf{w}\)</span> e o vetor <span class="math notranslate nohighlight">\(\textbf{x}_{1}-\textbf{x}_{2}\)</span>.</p>
+<p>Considerando agora outros dois vetores <span class="math notranslate nohighlight">\(\textbf{x}_{3}=(x_{31},0)\)</span> e <span class="math notranslate nohighlight">\(\textbf{x}_{4}=(0,x_{42})\)</span> que também ocupam a superfície de decisão, salvo detalhe que <span class="math notranslate nohighlight">\(\textbf{x}_{3}\)</span> e <span class="math notranslate nohighlight">\(\textbf{x}_{4}\)</span> interceptam o primeiro e segundo eixo do espaço de atributos, respectivamente. Com isso:</p>
+<div align=center>
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+g(\textbf{x}_{3})=\textbf{w}^{T}\textbf{x}_{3} + 𝜔_{0} = 0 \Rightarrow 𝜔_{1}x_{31} + 𝜔_{2}0 + 𝜔_{0} = x_{31} = -\frac{𝜔_{0}}{𝜔_{1}}
+\end{equation}\)</span> </div></p>
+<div align=center>
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+g(\textbf{x}_{3})=\textbf{w}^{T}\textbf{x}_{4} + 𝜔_{0} = 0 \Rightarrow 𝜔_{1}0 + 𝜔_{2}x_{42} + 𝜔_{0} = x_{42} = -\frac{𝜔_{0}}{𝜔_{2}}
+\end{equation}\)</span> </div></p>
+<p>Esse resultado permite concluir que a distância entre a superfície de decisão e a origem do espaço de atributos equivale a <span class="math notranslate nohighlight">\(\frac{|𝜔_{0}|}{||\textbf{w}||}\)</span>. Ainda, com base no mesmo conceito de distância entre ponto e reta, é possível concluir que o módulo de <span class="math notranslate nohighlight">\(g(\textbf{x})\)</span> expressa a distância entre <span class="math notranslate nohighlight">\(\textbf{x}\)</span> e a superfície de decisão.</p>
+<p>Além da noção de distância entre os padrões/vetores e a superfície de decisão, é de extrema importância o valor do retorno gerado pela função discriminante. Ao tomar um <span class="math notranslate nohighlight">\(\textbf{x}\)</span> qualquer, tal que <span class="math notranslate nohighlight">\(g(\textbf{x}) &gt; 0\)</span>, pode-se concluir que tal vetor está afastado da superfície <span class="math notranslate nohighlight">\(g(\textbf{x})=0\)</span> no mesmo sentido do vetor <span class="math notranslate nohighlight">\(\textbf{w}\)</span>. De forma similar, <span class="math notranslate nohighlight">\(g(\textbf{x}) &lt; 0\)</span> indica que o vetor ortogonal à superfície de decisão com extremidade em <span class="math notranslate nohighlight">\(\textbf{x}\)</span> possui sentido oposto a <span class="math notranslate nohighlight">\(\textbf{w}\)</span>. Esta observação a respeito do sinal de <span class="math notranslate nohighlight">\(g(\textbf{x})\)</span> caracteriza a regra de decisão de um classificador linear, usualmente expressa por:</p>
+<div align=center>
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+g(\textbf{x})=\textbf{w}^{T}\textbf{x} + 𝜔_{0}  \left \{ \begin{matrix} &gt;0 ⇒ \textbf{x} \in 𝜔_{1} \\ &lt; 0 ⇒ \textbf{x} \in 𝜔_{2} \end{matrix} \right. \tag{2.2}
+\end{equation}\)</span> </div></p>
+<p>De acordo com a equação acima, verifica-se que um classificador linear possibilita a distinção entre duas classes somente.</p>
+<p>Antes de prosseguir os estudos sobre os classificadores lineares, é importante que se saiba a diferença entre <span class="math notranslate nohighlight">\(\textit{classificadores lineares}\)</span> e <span class="math notranslate nohighlight">\(\textit{problemas linearmente separáveis}\)</span>. Conforme já definido, os classificadores lineares são estruturados segundo funções discriminantes com forma equivalente à apresentada na Equação 2.1. Por outro lado, um problema de classificação é considerado linearmente separável desde que seja possível obter, pelo menos, uma superfície de decisão linear que distinguia dois tipos de objetos cujas classes sejam conhecidas de antemão (Figura 2.2). Isso permite concluir que a capacidade de separação através de uma superfície linear é uma propriedade dos dados a serem classificados e não do classificador em si.</p>
+<div align="center"> 
+<p><img alt="figura21" src="../_images/figura22-linearmenteseparavel.png" /> <legend>Figura 2.2 - Exemplos de casos de separabilidade. Para dados linearmente separáveis, é garantida a existência de uma superfície linear capaz de particionar o espaço de atributos em dois subconjuntos de classes distintas, sendo esta afirmação não garantida para o caso não linearmente separável.</p>
+</legend> </div>
+</section>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Chapter_2"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../Chapter_1/1_6_exercicios.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">1.6 - Exercícios resolvidos</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="2_1_perceptron.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">2.2 Perceptron</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classificadores-e-problemas-lineares">Classificadores e problemas lineares</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kamilla Taiwhscki
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

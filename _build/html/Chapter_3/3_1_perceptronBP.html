@@ -1,0 +1,835 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>3.1: Perceptron multicamadas e o algoritmo \(\textit{backpropagation}\) &#8212; Reconhecimento de Padrões</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Chapter_3/3_1_perceptronBP';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Capítulo 3: Classificadores não lineares" href="3_0_classificadoresNaoLineares.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logobg.png" class="logo__image only-light" alt="Reconhecimento de Padrões - Home"/>
+    <img src="../_static/logobg.png" class="logo__image only-dark pst-js-only" alt="Reconhecimento de Padrões - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Apresentação
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter_1/1_0_bayes.html">Capítulo 1: Teoria da decisão de Bayes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_1_classificacao_MAP_ML.html">1.1: Classificação MAP e ML</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_2_naive-bayes.html">1.2: Naive Bayes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_3_discriminantes.html">1.3: Funções discriminantes e superfíceies de decisão</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_4_minima-distancia.html">1.4: Classificação por mínima distância (casos particulares)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_5_densidade-probabilidade.html">1.5: Estimação de funções densidade de probabilidade</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_6_exercicios.html">1.6 - Exercícios resolvidos</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter_2/2_0_classificadoresLineares.html">Capítulo 2: Classificadores lineares</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_2/2_1_perceptron.html">2.2 Perceptron</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_2/2_2_errosQuadraticos.html">2.3 Estimativa baseada na soma dos erros quadráticos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_2/2_3_SVM.html">2.4 Máquina de vetores de suporte (SVM) - versão linear</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_2/2_4_estrategiasMulticlasse.html">2.5 Estratétegias Multiclasse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_2/2_5_exercicios.html">2.6 - Exercícios resolvidos</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="3_0_classificadoresNaoLineares.html">Capítulo 3: Classificadores não lineares</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">3.1: Perceptron multicamadas e o algoritmo <span class="math notranslate nohighlight">\(\textit{backpropagation}\)</span></a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FChapter_3/3_1_perceptronBP.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/Chapter_3/3_1_perceptronBP.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>3.1: Perceptron multicamadas e o algoritmo \textit{backpropagation}</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funcoes-de-ativacao-taxa-de-aprendizado-e-convergencia">3.1.1: Funções de ativação, taxa de aprendizado e convergência</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indicadores-de-classe-e-a-camada-de-saida">3.1.2: Indicadores de classe e a camada de saída</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelagem-algebrica-do-algoritmo-textit-backpropagation">3.1.3 Modelagem algébrica do algoritmo <span class="math notranslate nohighlight">\(\textit{backpropagation}\)</span></a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <style>
+    legend {
+        font-size: 16px;
+    }
+    main {
+        text-align: justify;
+    }
+</style>
+<section class="tex2jax_ignore mathjax_ignore" id="perceptron-multicamadas-e-o-algoritmo-textit-backpropagation">
+<h1>3.1: Perceptron multicamadas e o algoritmo <span class="math notranslate nohighlight">\(\textit{backpropagation}\)</span><a class="headerlink" href="#perceptron-multicamadas-e-o-algoritmo-textit-backpropagation" title="Link to this heading">#</a></h1>
+<p>O algoritmo Percetron da forma proposta por Rosenblat foi colocado em descrença após a publicação do trabalho de Minsky e Seymour Pepert [Minsky and Seymour, 1969], pois este trabalho demonstrava diversas fragilidades que o Perceptron possuía ao tentar utilizar o médoto para resolver uma série de problemas triviais. Um destes problemas é simular o funcionando de uma porta lógica XOR<a class="footnote-reference brackets" href="#id3" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, sendo considerado um problema simples a ser resolvido. Para tornar o problema factível, é necessário empregar duas superfícies de decisão para caracterizar as saídas desejadas da operação XOR. De acordo com a Figura 3.2 os dados originias que caracterizam a porta lógica XOR são remapeados para um espaço intermediário, caracterizado pelas saídas das portas lógicas AND (<span class="math notranslate nohighlight">\({z_1}\)</span>) e OR (<span class="math notranslate nohighlight">\({z_2}\)</span>) que, por sua vez, são distinguidas por uma terceira superfície.</p>
+<div align="center">   
+<p><img alt="figura11" src="../_images/figura32XOR.png" /> <legend>Figura 3.2 - Emprego de duas superfícies que remapeiam os dados em um problema linearmente separável.</legend> </div></p>
+<p>Essa combinação realizada entre superfícies lineares transforma o processo em uma abordagem não linear. As etapas que levaram à solução apresentada podem ser interpretadas através de três Perceptrons independentes. Em conformidade com o modelo de neurônio de McCulloc-Pitts a combinação desses perceptrons gera uma rede de neurônios artificiais (ou rede neural artificial) representada na Figura 3.3.</p>
+<div align="center">   
+<p><img alt="figura11" src="../_images/xor-network.png" /> <legend>Figura 3.3 - Arquitetura do Perceptron multicamadas que resolver o operador XOR. Fonte: Goldstraw, 2022.</legend> </div></p>
+<p>A arquitetura de uma rede neural representada na Figura 3.4 possui: uma <span class="math notranslate nohighlight">\(\textit{camada de entrada}\)</span>, que recebe os dados no espaço de atributos original; seguido por uma <span class="math notranslate nohighlight">\(\textit{camada oculta}\)</span>  (ou <span class="math notranslate nohighlight">\(\textit{escondida}\)</span>) de neurônios, que realizam mapeamentos para um novo espaço de atributos; cujos resultados são inseridos em uma última camada, denominada <span class="math notranslate nohighlight">\(\textit{camada de saída}\)</span>, responsável por gerar o resultado. As funções de ativação usadas na modelagem deste problema são ditas “binárias”, isto é,</p>
+<div align="center">
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+    g_j(z) =
+    \begin{cases}
+    1 &amp; \text{se } z \geq 0 \\
+    0 &amp; \text{se } z &lt; 0
+    \end{cases}
+    \quad , \ j = 1, 2, 3 \tag{3.1}
+\end{equation}\)</span></p>
+</div>
+<p>De modo geral, a composição de uma rede de neurônios na forma como foi discutida caracteriza o método denominado Perceptron Multicamadas (MLP, do inglês <span class="math notranslate nohighlight">\(\textit{Multilayer Perceptron}\)</span>). Diversas arquiteturas de MPL podem ser empregadas de acordo com o problema de classificação, os ajustes necessários dependerão, dentre outros fatores, do problema que se deseja solucionar. A Figura 3.4 apresenta uma rede MLP em que se pode observar a relação entre os pesos sinápticos e os neurônios que ocupam as diferentes camadas.</p>
+<div align="center">   
+<p><img alt="figura11" src="../_images/MLFNwithWeights.jpg" /> <legend>Figura 3.4 - Exemplo de rede neural de múltiplas camadas. Fonte: DTREG, 2025.</legend> </div></p>
+<p>Além da complexidade que abrange a determinação da arquitetura da rede de neurônios, a determinação dos pesos associados a cada conexão é uma questão fundamental na modelagem de uma rede neural. No ponto de vista do aprendizado supervisionado, os pesos são ajustados iterativamente com base nas informações rotuladas e disponíveis em um conjunto <span class="math notranslate nohighlight">\(D\)</span>, dessa forma, simulando um processo de aquisição de conhecimento. Para essa finalidade, é empregado o algoritmo <span class="math notranslate nohighlight">\(\textit{backpropagation}\)</span>. Este algortimo funciona de forma que para cada estímulo apresentado, a resposta gerada é comparada ao retorno esperado, que por sua vez, pode proporcionar uma onda de autoajuste no sentido contrário, ou seja, de forma retropropagada.</p>
+<p>De modo genérioco, uma rede neural é composta por <span class="math notranslate nohighlight">\(L \in \textbf{N}^*\ \)</span> camadas. Cada camada <span class="math notranslate nohighlight">\(l = 1, \ldots, L\)</span> possui <span class="math notranslate nohighlight">\(h_l\)</span> neurônios. Os neurônios que ocupam duas camadas consecutivas são conectados a fim de permitir a propagação de um sinal através da rede neural, da camada de entrada até a saída. As conexões são ponderadas por um peso sináptico <span class="math notranslate nohighlight">\(w_{uv}\)</span>, referente à conexão entre os neurônios [<span class="math notranslate nohighlight">\(u\)</span>] e [<span class="math notranslate nohighlight">\(v\)</span>], sendo [<span class="math notranslate nohighlight">\(v\)</span>] pertencente a uma camada anterior à camada de [<span class="math notranslate nohighlight">\(u\)</span>].</p>
+<p>Cada neurônio [<span class="math notranslate nohighlight">\(u\)</span>] é conectado a unma entrada que emite sinal constante igual a <span class="math notranslate nohighlight">\(+1\)</span>, cuja ligação é ponderada por <span class="math notranslate nohighlight">\(w_{u0}\)</span>. Tal conexão atua como termo polarizador (<span class="math notranslate nohighlight">\(\textit{bias}\)</span>) no processo de treinamento da rede.</p>
+<p>Considere o neurônio [<span class="math notranslate nohighlight">\(u\)</span>], um neurônio estritamente localizado na saída da rede neural, após a apresentação do padrão <span class="math notranslate nohighlight">\(x_i\)</span> na entrada da rede, define-se o “erro observado” pela expressão:</p>
+<div align="center">
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+    e_{u}(i) = y_{u}(i) - z_{u}^{(L)}(i) \tag{3.2}
+\end{equation}\)</span></p>
+</div> 
+<p>em que <span class="math notranslate nohighlight">\(y_{u}(i)\)</span> e <span class="math notranslate nohighlight">\(z_{u}^{(L)}(i)\)</span> se referem ao retorno esperado e obtido, respectivamente; ambos com relação ao neurônio [<span class="math notranslate nohighlight">\(u\)</span>]. Vale ressaltar que <span class="math notranslate nohighlight">\(y_{u}(i)\)</span> é a <span class="math notranslate nohighlight">\(u\)</span>-ésima componente do vetor <span class="math notranslate nohighlight">\(\textbf{y}_i\)</span>, conhecimento através de <span class="math notranslate nohighlight">\(D\)</span>.</p>
+<p>O valor <span class="math notranslate nohighlight">\(\frac{1}{2}e_{u}(i)\)</span> sobre [<span class="math notranslate nohighlight">\(u\)</span>] é definido por “valor instantâneo de energia do erro”, por sua vez, é estabelecido como “valor instantâneo de energia do erro total” a soma da energia do erro que surge de cada neurônio na camada de saída como:</p>
+<div align="center">
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+    E(i) = \frac{1}{2} \sum_{u=1}^{h_L} e_{u}^{2}(i) \tag{3.3}
+\end{equation}\)</span></p>
+</div>
+<p>A partir de 3.3 é possível obter o valor médio dos <span class="math notranslate nohighlight">\(E_(i)\)</span>; <span class="math notranslate nohighlight">\(i = 1, \ldots , m\)</span>, computado após a apresentação à rede neural de todos os padrões em <span class="math notranslate nohighlight">\(D\)</span>, sendo esta uma função de todos os pesos sinápticos existentes na rede, tendo como objetivo avaliar o desempenho. O dados de treinamento não apresentados um a um a rede, em instantes “distintos”. Esse processo deve ser repetido diversas vezes até que a convergência seja alcançada. A apresentação de todos os exemplos em <span class="math notranslate nohighlight">\(D\)</span> será denominada “época. Em cada época, a ordem em qu eos exemplos são apresentados deve mudar; por sua vez, a indexação definida por <span class="math notranslate nohighlight">\(i\)</span> em (<span class="math notranslate nohighlight">\(x_i\)</span>, <span class="math notranslate nohighlight">\(y_i\)</span>) sofrerá alteração. Esse procedimento visa a eliminar possíveis viéses causados pela ordem com que a rede é ajustada.</p>
+<p>O neurônio [<span class="math notranslate nohighlight">\(u\)</span>], situado na saída da rede neural, recebe os sinais <span class="math notranslate nohighlight">\(z_{u}^{(L-1)}(1),\ldots,z_{u}^{(L-1)}(v),\ldots ,z_{u}^{(L)}(h_{L-1})\)</span> emitidos pelos neurônios à sua esquerda. Esses sinais são ponderados pelos pesos <span class="math notranslate nohighlight">\(w_{u1},\ldots,w_{uv},\ldots,w_{uh_{L-1}}\)</span> das respectivas conexões sinápticas e induzem um “campo local” <span class="math notranslate nohighlight">\(t_{u}(i)\)</span>, definido por:</p>
+<div align="center">
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+    t_{u}^{(L)} = \sum_{j=1}^{h_{L-1}} w_{uj}z_{j}^{(L-1)}(i) \tag{3.4}
+\end{equation}\)</span></p>
+</div>
+<p>Posteriormente, o campo local é transformado em um sinal funcional emitido por <span class="math notranslate nohighlight">\([u]\)</span> (Equação 3.2) que permite o cálculo do erro em <span class="math notranslate nohighlight">\([u]\)</span> e, indiretamento, o valor instantâneo da energia do erro (Equação 3.3).</p>
+<p>Com o intuito de ajustar os valores dos pesos sinápticos que minimizam o erro na saída da rede, o algoritmo <span class="math notranslate nohighlight">\(\textit{backpropagation}\)</span> aplica sucessivas correções <span class="math notranslate nohighlight">\(\Delta w_{uv}\)</span> sobre cada peso <span class="math notranslate nohighlight">\(w_{uv}\)</span>. O valor <span class="math notranslate nohighlight">\(\Delta w_{uv}\)</span> é proporcional à taxa de variação do ero com relação à , isto é, <span class="math notranslate nohighlight">\(\frac{\partial E(i)}{\partial w_{uv}}\)</span>.Tal taxa corresponde a um fator de sensibilidade e determina a direção em que se deve buscar o novo peso e corrigir o <span class="math notranslate nohighlight">\(w_{uv}\)</span>. Utilizando a regra da cadeia, e resolvendo-as, se obtem:</p>
+<div align="center">
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+    - e_{u}(i) \cdot \varphi' \left( t_{u}^{[L]}(i) \right) \cdot z_{u}^{[L]}(i) \tag{3.5}
+\end{equation}\)</span></p>
+</div>
+<p>A correção de <span class="math notranslate nohighlight">\(\Delta w_{uv}\)</span> é proporcional a <span class="math notranslate nohighlight">\(\frac{\partial E(i)}{\partial w_{uv}}\)</span>. Assim, pode-se definir:</p>
+<div align="center">
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+    \Delta w_{uv} = - \eta \cdot \frac{\partial E(i)}{\partial w_{uv}} =  \eta \cdot e_{[u]}(i) \cdot \phi' \left( t_{u}^{[L]}(i) \right) \cdot z_{u}^{[L]}(i) \tag{3.6}
+\end{equation}\)</span></p>
+</div>
+<p>em que <span class="math notranslate nohighlight">\(\eta in \textbf{R}_+\)</span> estabelece a proporcionalidade citada, atuando no contexto do algoritmo como uma taxa de aprendizado; o sinal “-” é proveniente da estratégia do Gradiente Descendente, sendo este um fator chave no ajuste dos pesos sinápticos da rede.</p>
+<p>O produto <span class="math notranslate nohighlight">\(e_{[u]}(i) \cdot \varphi' \left( t_{u}^{[L]}(i) \right)\)</span> define um “gradiente local”, denotado aqui por <span class="math notranslate nohighlight">\(\delta_{[u]}^{[L]}(i)\)</span>, se refere ao erro proporcionado em relação ao campo induzido em [<span class="math notranslate nohighlight">\(u\)</span>] diante da apresentação de <span class="math notranslate nohighlight">\(\textbf{x}_i\)</span>. Logo:</p>
+<div align="center">
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+    \delta_{[u]}^{[L]}(i) = e_{[u]}(i) \cdot \varphi' \left( t_{u}^{[L]}(i) \right) \tag{3.7}
+\end{equation}\)</span></p>
+</div>
+<p>evidenciando que o erroobservado no neurônio é de suma importância para os ajustes locais dos pesos sinápticos.</p>
+<p>Como evidenciado através da própria arquitetura da rede neural, os valores dos erros são conhecidos apenas na camada de saída. Porém, o ajuste dos pesos sinápticos deve ocorrer ao longo de toda a rede. Essa questão desdobra-se em dois casos particulares:</p>
+<div align="left">
+<p>(i). [<span class="math notranslate nohighlight">\(u\)</span>] é um neurônio de saída, então sua resposta esperada (ou desejada) já é conhecida de antemão, dado (<span class="math notranslate nohighlight">\(\textbf{x}_i\)</span> <span class="math notranslate nohighlight">\(\textbf{y}_i\)</span> \in D), logo o cálculo do erro se torna direto;</p>
+<p>(ii). [<span class="math notranslate nohighlight">\(u\)</span>] é um neurônio oculto e exerce influência no comportamento da rede, logo seu peso deve ser ajustado de forma indireta a partir do erro obtido nos neurônios da camada de saída.</p>
+</div>
+<p>A respeito do primeiro caso, têm-se <span class="math notranslate nohighlight">\(\delta_{[u]}^{[L]}(i)\)</span> definido exatamente através da Equação 3.7. Para o segundo caso, a expressão do gradiente locla parte considerando:</p>
+<div align="center">
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+    \delta_{[u]}^{[L]}(i) = - \frac{\partial E(i)}{\partial z_{[u]}^{[L-1]}} \cdot \frac{\partial z_{u}^{[L-1]}(i)}{\partial t_{u}^{[L-1]}(i)}
+     = \frac{\partial E(i)}{\partial z_{u}^{[L-1]}(i)} \cdot \varphi'\left( t_{u}^{[L]}(i) \right) \tag{3.8}
+\end{equation}\)</span></p>
+</div>
+<p>Realizando as devidas manipulações matemática e a combinação das expressões derivadas, a seguindo expressão é alcançada:</p>
+<div align="center">
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+    \delta_{[u]}^{[L-1]}(i) = \left( \sum_{k=1}^{h_L} \delta_{k}^{[L]}(i) \cdot w_{ku} \right) \cdot \varphi'\left( t_{u}^{[L]}(i) \right) \tag{3.9}
+\end{equation}\)</span></p>
+</div>
+<p>O termo <span class="math notranslate nohighlight">\(\varphi'\left( t_{u}^{[L]}(i) \right)\)</span> é obtido com relação ao campo local <span class="math notranslate nohighlight">\(\left( t_{u}^{[L]}(i) \right)(i)\)</span> gerado no momento da propagação do sinal de entrada.</p>
+<p>O desenvolvido dessas expressões proporciona o gradiente local sobre o neurônio [<span class="math notranslate nohighlight">\(u\)</span>] que antecede a camada de saída. De qualquer forma, o gradiente é expresso em função dos gradientes da camada posterior. Sendo assim, para neurônios que antecedem [<span class="math notranslate nohighlight">\(u\)</span>], o cálculo do respectivo gradiente local sera dado pelos neurônios da camada de [<span class="math notranslate nohighlight">\(u\)</span>], e assim sucessivamente até a primeira camada da rede neural.</p>
+<p>Ao fim deste raciocínio, é possível concluir que a correção feita sobre cada peso sináptico que se conecta a [<span class="math notranslate nohighlight">\(u\)</span>] a partir de [<span class="math notranslate nohighlight">\(v\)</span>] é dada por:</p>
+<div align="center">
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+    w_{uv} := w_{uv} + \Delta w_{uv} 
+\end{equation}\)</span></p>
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+    \Delta w_{uv} = \eta \cdot \delta_{[u]}^{[L]}(i) \cdot z_{u}^{[L]}(i) \tag{3.10}
+\end{equation}\)</span></p>
+</div>
+<p>tal que:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\delta_{[u]}^{[L]}(i) = \varphi'\left( t_{u}^{[L]}(i) \right) \cdot e_{[u]}(i)\)</span> se [<span class="math notranslate nohighlight">\(u\)</span>] está na <span class="math notranslate nohighlight">\(L\)</span>-ésima camada;</p></li>
+<li><p><span class="math notranslate nohighlight">\(\delta_{[u]}^{[L]}(i) = \varphi'\left( t_{u}^{[L]}(i) \right) \cdot \left( \sum_{k=1}^{l+1} \delta_{[k]}^{[l+1]}(i)w_{ku} \right)\)</span>, se [<span class="math notranslate nohighlight">\(u\)</span>] está na <span class="math notranslate nohighlight">\(l\)</span>-ésima camada, com <span class="math notranslate nohighlight">\(l \ne L\)</span>.</p></li>
+</ul>
+<section id="funcoes-de-ativacao-taxa-de-aprendizado-e-convergencia">
+<h2>3.1.1: Funções de ativação, taxa de aprendizado e convergência<a class="headerlink" href="#funcoes-de-ativacao-taxa-de-aprendizado-e-convergencia" title="Link to this heading">#</a></h2>
+<p>Dois elementos chave no treinamento da rede MLP são as funções de ativação e a taxa de aprendizado. Devido à natureza iterativa, o método MLP é treinado até que determinado critério de convergência seja atingido.</p>
+<p>As <span class="math notranslate nohighlight">\(\textit{funções de ativação}\)</span> associadas aos neurônios da rede são responsáveis pela caracterização das respostas geradas por cada um deles, bem como são utilizadas no cálculo dos diferentes gradientes locais.</p>
+<p>Ao longo da execução do algoritmo <span class="math notranslate nohighlight">\(\textit{backpropagation}\)</span>, são obtidas aproximações para configurações dos pesos da rede. Admitindo valores pequenos para a <span class="math notranslate nohighlight">\(\textit{taxa de aprendizado}\)</span> <span class="math notranslate nohighlight">\(\eta\)</span> , menores serão as variações dos pesos sinápticos, dessa forma, levando a um aprendizado “suave” e lento. Por outro lado, quando adotados valores maiores para tal parâmetro, as atualizações sobre os pesos sinápticos podem atingir largas escalas, tornando o aprendizado da rede um processo instável.</p>
+<p>Dentre exemplos de funções de ativação utilizadas nesse propósito, são as funções <span class="math notranslate nohighlight">\(\textit{identidade} \varphi(t) = t\)</span> e RELU<a class="footnote-reference brackets" href="#id4" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> <span class="math notranslate nohighlight">\(\varphi(t) = max \{0,t\}\)</span>. As respectivas formas derivadas são triviais.</p>
+<p>Uma forma de aumentar a taxa de aprendizado e evitar possíveis instabilidades é proposta pela seguinte alteração no termo <span class="math notranslate nohighlight">\(\Delta w_{uv}\)</span> presente na equação 3.10:</p>
+<div align="center">
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+    \Delta w_{uv} = \chi \Delta w_{uv}(i - 1) + \eta \cdot \delta_{[u]}^{[L]}(i) \cdot z_{u}^{[l-1]}(i) \tag{3.11}
+\end{equation}\)</span></p>
+</div>
+<p>sendo <span class="math notranslate nohighlight">\(\Delta w_{uv}(i - 1) = \eta \cdot \delta_{\left[u\right]}^{\left[L\right]}(i - 1) \cdot z_{u}^{\left[l-1\right]}(i - 1); e\chi \in \left[0,1\right[\)</span> denominado por <span class="math notranslate nohighlight">\(\textit{constante de momento}\)</span>.</p>
+<p>Por fim, como <span class="math notranslate nohighlight">\(\textit{critério de convergência}\)</span> é razoável admitir convergência quando os valores de <span class="math notranslate nohighlight">\(\overline{E}\)</span> estacionam ao longo das épocas. Outro critétrio é observar a convergência em relação ao desempenho da rede diante de exemplos contidos em um conjunto de validação.</p>
+</section>
+<section id="indicadores-de-classe-e-a-camada-de-saida">
+<h2>3.1.2: Indicadores de classe e a camada de saída<a class="headerlink" href="#indicadores-de-classe-e-a-camada-de-saida" title="Link to this heading">#</a></h2>
+<p>Diferente das abordagens anteriores, o indicador de classes utilizado no método MLP segue uma forma vetorial. Este formato visa traçar uma compatibilização entre o número de classes envolvidas no problema de classificação, determinando a quantidade de neurônios na camada de saída.</p>
+<p>Supondo que um problema compreende <span class="math notranslate nohighlight">\(c\)</span> classes é necessário <span class="math notranslate nohighlight">\(c\)</span> neurônios na cama de saída, sendo que cada neurônio na saída corresponde a uma classe específica. Dessa forma, a organização das respostas geradas por cada neurônio em um formato vetorial é comparada a uma dada resposta esperada.</p>
+<p>Como dito anteriormente, as respostas geradas e esperadas pelos neurônios da camada de saída correspondem a <span class="math notranslate nohighlight">\(z_{u}^{[L]}\)</span> e <span class="math notranslate nohighlight">\(y_[u]\)</span> conforme a Equação 3.2. Para um padrão <span class="math notranslate nohighlight">\(\textbf{x}\)</span> cuja classe associada é <span class="math notranslate nohighlight">\(\omega_j\)</span>, tem-se que <span class="math notranslate nohighlight">\(y_{[j]} = 1\)</span> e <span class="math notranslate nohighlight">\(y_{[u]} = 0\)</span> para <span class="math notranslate nohighlight">\(u \neq j\)</span>. Para este mesmo exemplo, é esperado que <span class="math notranslate nohighlight">\(z_{i}^{[L]}\)</span> apresente valor superior aos demais <span class="math notranslate nohighlight">\(z_{u}^{[L]}\)</span> com <span class="math notranslate nohighlight">\(u \neq i\)</span>.
+Convenientemente, estes valores são organizados por e <span class="math notranslate nohighlight">\(\textbf{z} = z_{1}^{[L]},\ldots,z_{c}^{[L]}\)</span>, dessa forma, permitindo um melhor tratamento algébrico, conforme abordado a seguir.</p>
+</section>
+<section id="modelagem-algebrica-do-algoritmo-textit-backpropagation">
+<h2>3.1.3 Modelagem algébrica do algoritmo <span class="math notranslate nohighlight">\(\textit{backpropagation}\)</span><a class="headerlink" href="#modelagem-algebrica-do-algoritmo-textit-backpropagation" title="Link to this heading">#</a></h2>
+<p>A seguir será apresentado a modelagem algébrica que envolve a aplicação do algoritmo <span class="math notranslate nohighlight">\(\textit{backpropagation}\)</span> no treinamento da MLP. A modelagem aqui apresentada pode ser facilmente estendida para quaisquer arquiteturas de rede em que se tenha interesse. Os passos descritos a seguir contemplam apenas a apresentação de um único exemplo de rede neural, apresentado na Figura 3.5, cujo erro obtido na saída é retropropagado a fim de corrigir os pesos sinápticos.</p>
+<div align="center">   
+<p><img alt="figura11" src="../_images/RedeMLPex.png" /> <legend>Figura 3.5 - Arquitetura da rede considerada no exemplo algébrico. Fonte: Elaborada pelo autor.</legend></p>
+</div>
+<p>Seja <span class="math notranslate nohighlight">\(\textbf{x}_i\)</span> um padrão extraído de <span class="math notranslate nohighlight">\(D\)</span> e apresentado na entrada do perceptron considerado. O csmpo induzido sobre os neurônios da primeira camada é:</p>
+<div align="center">
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+    t^{[1]} = 
+    \begin{bmatrix}
+    w_{10} &amp; w_{11} &amp; w_{12} \\
+    w_{20} &amp; w_{21} &amp; w_{22}
+    \end{bmatrix}^{[1]}
+    \cdot
+    \begin{bmatrix}
+    +1 \\
+    x_{i1} \\
+    x_{i2}
+    \end{bmatrix} 
+    = W^{[1]} \cdot z^{[0]^T}; \\
+    t^{[1]} = 
+    \begin{bmatrix}
+    t_{[1]}(i) \\
+    t_{[2]}(i)
+    \end{bmatrix}
+\end{equation}\)</span></p>
+</div>
+<p>em que <span class="math notranslate nohighlight">\(\textbf{z}^{[0]} \equiv \textbf{x}_i\)</span>. Vale observar que, nas notações acima, a matriz dos pesos sinápticos e o vetor do campo induzido são denotados em função da camada que ocupam. Nesse caso, o superescrito “<span class="math notranslate nohighlight">\([1]\)</span>” identifica os pesos e sinais que ocorrem na primeira camada.</p>
+<p>Por sua vez, a aplicação da função de ativação <span class="math notranslate nohighlight">\(\varphi(\cdot)\)</span> sobre os campos induzidos em cada neurônio é resumida por <span class="math notranslate nohighlight">\(\varphi(\textbf{t}^{[1]}) = \begin{matrix} t_{[1]}(i)\\ t_{[2]}(i) \end{matrix}\)</span>, que logo se torna equivalente a <span class="math notranslate nohighlight">\(\textbf{z}^{[1]}\)</span>.</p>
+<p>Diante da próxima camada, a matriz de peso possuit <span class="math notranslate nohighlight">\((3 + 1)\)</span> linhas e <span class="math notranslate nohighlight">\((2 + 1)\)</span> colunas, uma vez que devemos garantir a estrutura que interliga os dois neurônios da primeira camada com os três neurônios da segunda camada e incluir o “bias”, consequentemente garantindo compatibilidade na multiplicação matricial que segue. No exemplo ilustrado:</p>
+<div align="center">
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+    \begin{bmatrix}
+    w_{10} &amp; w_{11} &amp; w_{12} \\
+    w_{20} &amp; w_{21} &amp; w_{22} \\
+    w_{30} &amp; w_{31} &amp; w_{32}
+    \end{bmatrix}^{[2]} \cdot \begin{bmatrix}
+    +1 \\
+    z_{[1]}(i) \\
+    z_{[2]}(i)
+    \end{bmatrix} = \textbf{W}^{[2]} \cdot \textbf{z}^{[1]^T}; \textbf{t}^{[2]} = 
+    \begin{bmatrix}
+    t_{[1]}(i) \\
+    t_{[2]}(i) \\
+    t_{[3]}(i)
+    \end{bmatrix}
+\end{equation}\)</span></p>
+</div>
+<p>e tão logo temos <span class="math notranslate nohighlight">\(\textbf{z}^{[2]} = \varphi(\textbf{^t}^{[2]})\)</span>.</p>
+<p>Da mesma forma:</p>
+<div align="center">
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+    \begin{bmatrix}
+    w_{10} &amp; w_{11} &amp; w_{12} &amp; w_{13} \\
+    w_{20} &amp; w_{21} &amp; w_{22} &amp; w_{23} \\
+    \end{bmatrix}^{[3]} \cdot \begin{bmatrix}
+    +1 \\
+    z_{[1]}(i) \\
+    z_{[2]}(i) \\
+    z_{[3]}(i)
+    \end{bmatrix} = \textbf{W}^{[3]} \cdot \textbf{z}^{[2]^T}; \textbf{t}^{[3]} = 
+    \begin{bmatrix}
+    t_{[1]}(i) \\
+    t_{[2]}(i)
+    \end{bmatrix}
+\end{equation}\)</span></p>
+</div>
+<p>As etapas apresentadas até este ponto contemplam o processo de alimentação, no qual a informação apresentada na entrada da rede é propagada até a saída. Os próximos passos abrangem o cálculo do erro na saída e a correção dos pesos sinápticos com base na retropropagação do erro calculado.</p>
+<p>Perante a resposta observada na última camada e com base nas discussões referentes à Equação 3.7, é possível expressar:</p>
+<div align="center">
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+    \delta^{[3]} = diag(\textbf{y}_i - \textbf{z}^{[3]}) \cdot \varphi'\left(\textbf{t}^{[3]}\right) = 
+    \begin{bmatrix}
+    e_{[1]} &amp; 0 \\
+    0 &amp; e_{[2]} \\
+    \end{bmatrix} \cdot \begin{bmatrix}
+    \varphi'(t_{[1]})\\
+    \varphi'(t_{[2]})
+    \end{bmatrix}^{[3]} =
+    \begin{bmatrix}
+    \delta_{[1]}(i) \\
+    \delta_{[2]}(i)
+    \end{bmatrix}^{[3]}
+\end{equation}\)</span></p>
+</div>
+<p>em que <span class="math notranslate nohighlight">\(diag(\cdot)\)</span> equivale a uma função que reescreve um vetor na forma de uma matriz diagonal, cujos elementos distribuídos ao longo da diagonal correspondem às comonentes do vetor original e na mesma sequência com que ele é observado.</p>
+<p>Por sua vez, a correção nesta camada é dada por:</p>
+<div align="center">
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+    \delta^{[3]} = diag(\textbf{y}_i - \textbf{z}^{[3]}) \cdot \varphi'\left(\textbf{t}^{[3]}\right) = 
+    \begin{bmatrix}
+    w_{10} &amp; w_{11} &amp; w_{12} &amp; w_{13} \\
+    w_{20} &amp; w_{21} &amp; w_{22} &amp; w_{23} 
+    \end{bmatrix}^{[3]} := \begin{bmatrix}
+    w_{10} &amp; w_{11} &amp; w_{12} &amp; w_{13} \\
+    w_{20} &amp; w_{21} &amp; w_{22} &amp; w_{23} \end{bmatrix}^{[3]}
+\end{equation}\)</span></p>
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+    + \eta \begin{bmatrix}
+    \delta_{[1]}(i) \\
+    \delta_{[2]}(i)
+    \end{bmatrix}^{[3]} \cdot
+    \begin{bmatrix}
+    1 &amp; z_{[1]}^{[2]}(i) &amp; z_{[2]}^{[2]}(i) &amp; z_{[3]}^{[2]}(i)
+    \end{bmatrix}
+\end{equation}\)</span></p>
+</div>
+<p>de modo que o lado esquerdo da expressão acima corresponde à correção dos pesos da última camada.</p>
+<p>Posteriormente, é feita a correção dos pesos da segunda camada de neurônios. Para este caso, serão computados os gradientes locais <span class="math notranslate nohighlight">\(\delta_{[1]}^{[2]}\)</span>, <span class="math notranslate nohighlight">\(\delta_{[2]}^{[2]}\)</span> e <span class="math notranslate nohighlight">\(\delta_{[3]}^{[2]}\)</span>, os quais dependem dos gradientes <span class="math notranslate nohighlight">\(\delta_{[1]}^{[3]}\)</span> e <span class="math notranslate nohighlight">\(\delta_{[3]}^{[2]}\)</span> obtidos na terceira camada, conforma formalizado pela Equação 3.8:</p>
+<div align="center">
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+    \delta^{[2]} = -diag\left(
+        \begin{bmatrix}
+        delta_{[1]}^{[3]} &amp; delta_{[2]}^{[3]}
+        \end{bmatrix} \cdot 
+        \begin{bmatrix}
+        w_{10} &amp; w_{11} &amp; w_{12} &amp; w_{13} \\
+        w_{20} &amp; w_{21} &amp; w_{22} &amp; w_{23} 
+        \end{bmatrix}^{[3]}
+    \right) \cdot \varphi'\left(\textbf{t}^{[2]}\right)
+\end{equation}\)</span></p>
+</div>
+<p>Vale notar que, para a obtenção de <span class="math notranslate nohighlight">\(\delta^{[2]}\)</span>, a matriz de pesos sinápticos não inclui o bias, uma vez que não há conexão entre ele e os neurônios da segunda camada.</p>
+<p>Em seguida, a correção dos pesos é efetuada com:</p>
+<div align="center">
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+    \begin{bmatrix}
+    w_{10} &amp; w_{11} &amp; w_{12} &amp; w_{13} \\
+    w_{20} &amp; w_{21} &amp; w_{22} &amp; w_{23} 
+    \end{bmatrix}^{[2]} := \begin{bmatrix}
+    w_{10} &amp; w_{11} &amp; w_{12} &amp; w_{13} \\
+    w_{20} &amp; w_{21} &amp; w_{22} &amp; w_{23} \end{bmatrix}^{[2]}
+\end{equation}\)</span></p>
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+    + \eta \begin{bmatrix}
+    \delta_{[1]}(i) \\
+    \delta_{[2]}(i) \\
+    \delta_{[3]}(i)
+    \end{bmatrix}^{[2]} \cdot
+    \begin{bmatrix}
+    1 &amp; z_{[1]}^{[1]}(i) &amp; z_{[2]}^{[1]}(i)
+    \end{bmatrix}
+\end{equation}\)</span></p>
+</div>
+<p>Ao fim, a correção dos pesos da camada de entrada se inicia com o cálculo dos gradientes locais:</p>
+<div align="center">
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+    \delta^{[1]} = -diag\left(
+        \begin{bmatrix}
+        delta_{[1]}^{[2]} &amp; delta_{[2]}^{[2]} &amp; &amp; delta_{[3]}^{[2]}
+        \end{bmatrix} \cdot \begin{bmatrix}
+        w_{11} &amp; w_{12}\\
+        w_{21} &amp; w_{22} \\
+        w_{31} &amp; w_{32}
+        \end{bmatrix}^{[2]}
+    \right) \cdot \begin{bmatrix}
+        \varphi'(t_{[1]}^{[1]})\\
+        \varphi'(t_{[2]}^{[1]})
+        \end{bmatrix}^{[1]}
+\end{equation}\)</span></p>
+</div>
+<p>seguido pela correção dos pesos sinápticos:</p>
+<div align="center">
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+    \begin{bmatrix}
+    w_{11} &amp; w_{12} &amp; w_{13} \\
+    w_{21} &amp; w_{22} &amp; w_{23} 
+    \end{bmatrix}^{[1]} := \begin{bmatrix}
+    w_{11} &amp; w_{12} &amp; w_{13} \\
+    w_{21} &amp; w_{22} &amp; w_{23} \end{bmatrix}^{[1]}
+\end{equation}\)</span></p>
+<p><span class="math notranslate nohighlight">\(\begin{equation}
+    + \eta \begin{bmatrix}
+    \delta_{[1]}(i) \\
+    \delta_{[2]}(i)
+    \end{bmatrix}^{[1]} \cdot
+    \begin{bmatrix}
+    1 &amp; z_{[1]}^{[0]}(i) &amp; z_{[2]}^{[0]}(i)
+    \end{bmatrix}
+\end{equation}\)</span></p>
+</div>
+<p>lembrando que <span class="math notranslate nohighlight">\(\begin{bmatrix} z_{[1]}^{[0]}(i) &amp; z_{[2]}^{[0]}(i) \end{bmatrix}\)</span> corresponde ao padrão de entrada <span class="math notranslate nohighlight">\(\begin{bmatrix} x_{[i1]} &amp; x_{[i2]} \end{bmatrix}\)</span>.</p>
+<hr class="footnotes docutils" />
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id3" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Porta lógica OU exclusive (XOR, do inglês <span class="math notranslate nohighlight">\(\textit(Exclusive OR)\)</span>) é uma porta lógica que realiza uma operação OU entre duas variáveis, mas sua saída só será verdadeira (1) se e somente se uma das entradas é verdadeira. Ou seja, caso as duas sejam verdadeiras (1), o resultado será falso(0). O mesmo vale para o caso das duas variáveis serem falsa( 0 &amp; 0 <span class="math notranslate nohighlight">\(\leftrightarrow\)</span> 0). A representação genérica para qualquer par de entradas <span class="math notranslate nohighlight">\(\textbf{A}\)</span> e <span class="math notranslate nohighlight">\(\textbf{B}\)</span> para a operação XOR é <span class="math notranslate nohighlight">\(\textbf{A} \oplus \textbf{B} = (\textbf{A} \&amp; \neg \textbf{B}) \vee (\neg \textbf{A} \&amp; \textbf{B})\)</span></p>
+</aside>
+<aside class="footnote brackets" id="id4" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>Acrônimo de <span class="math notranslate nohighlight">\(\textit{Rectified Linear Unit}\)</span>.</p>
+</aside>
+</aside>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Chapter_3"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="3_0_classificadoresNaoLineares.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Capítulo 3: Classificadores não lineares</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funcoes-de-ativacao-taxa-de-aprendizado-e-convergencia">3.1.1: Funções de ativação, taxa de aprendizado e convergência</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indicadores-de-classe-e-a-camada-de-saida">3.1.2: Indicadores de classe e a camada de saída</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelagem-algebrica-do-algoritmo-textit-backpropagation">3.1.3 Modelagem algébrica do algoritmo <span class="math notranslate nohighlight">\(\textit{backpropagation}\)</span></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kamilla Taiwhscki
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

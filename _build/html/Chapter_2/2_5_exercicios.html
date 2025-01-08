@@ -1,0 +1,1086 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>2.6 - Exercícios resolvidos &#8212; Reconhecimento de Padrões</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Chapter_2/2_5_exercicios';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Capítulo 3: Classificadores não lineares" href="../Chapter_3/3_0_classificadoresNaoLineares.html" />
+    <link rel="prev" title="2.5 Estratétegias Multiclasse" href="2_4_estrategiasMulticlasse.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logobg.png" class="logo__image only-light" alt="Reconhecimento de Padrões - Home"/>
+    <img src="../_static/logobg.png" class="logo__image only-dark pst-js-only" alt="Reconhecimento de Padrões - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Apresentação
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter_1/1_0_bayes.html">Capítulo 1: Teoria da decisão de Bayes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_1_classificacao_MAP_ML.html">1.1: Classificação MAP e ML</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_2_naive-bayes.html">1.2: Naive Bayes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_3_discriminantes.html">1.3: Funções discriminantes e superfíceies de decisão</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_4_minima-distancia.html">1.4: Classificação por mínima distância (casos particulares)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_5_densidade-probabilidade.html">1.5: Estimação de funções densidade de probabilidade</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_1/1_6_exercicios.html">1.6 - Exercícios resolvidos</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="2_0_classificadoresLineares.html">Capítulo 2: Classificadores lineares</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="2_1_perceptron.html">2.2 Perceptron</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_2_errosQuadraticos.html">2.3 Estimativa baseada na soma dos erros quadráticos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_3_SVM.html">2.4 Máquina de vetores de suporte (SVM) - versão linear</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_4_estrategiasMulticlasse.html">2.5 Estratétegias Multiclasse</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">2.6 - Exercícios resolvidos</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter_3/3_0_classificadoresNaoLineares.html">Capítulo 3: Classificadores não lineares</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter_3/3_1_perceptronBP.html">3.1: Perceptron multicamadas e o algoritmo <span class="math notranslate nohighlight">\(\textit{backpropagation}\)</span></a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FChapter_2/2_5_exercicios.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/Chapter_2/2_5_exercicios.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>2.6 - Exercícios resolvidos</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#codigo-de-referencia-para-resolver-os-exercicios">Código de referência para resolver os exercícios.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercicio-1-svm">Exercício 1 - SVM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercicio-2-perceptron-com-ovr">Exercício 2 - Perceptron com OVR</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resultados">Resultados</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercicio-3-estrategia-multiclasses-ovr-adaptada-ao-metodo-sse">Exercício 3 - Estratégia multiclasses OVR adaptada ao método SSE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercicio-4-metodo-sse-segundo-ovo">Exercício 4 - Método SSE segundo OVO</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resultado">Resultado</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercicio-5-ovr-e-ovo">Exercício 5 - OVR e OVO</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Resultados</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <style>
+    h2 {
+        font-size: 24px;
+    }
+    legend {
+        font-size: 16px;
+    }
+    main {
+        text-align: justify;
+    }
+</style>
+<section class="tex2jax_ignore mathjax_ignore" id="exercicios-resolvidos">
+<h1>2.6 - Exercícios resolvidos<a class="headerlink" href="#exercicios-resolvidos" title="Link to this heading">#</a></h1>
+<p>Esta seção contém a resolução dos exercícios propostos no Capítulo 3 do livro texto de referência.</p>
+<section id="codigo-de-referencia-para-resolver-os-exercicios">
+<h2>Código de referência para resolver os exercícios.<a class="headerlink" href="#codigo-de-referencia-para-resolver-os-exercicios" title="Link to this heading">#</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">quantidades</span><span class="p">[</span><span class="n">r</span><span class="p">]):</span>
+        <span class="n">st</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">rotulos</span><span class="p">[</span><span class="n">r</span><span class="p">])</span>
+        <span class="n">st</span> <span class="o">+=</span> <span class="s1">&#39;,&#39;</span> <span class="o">+</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">dados</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>  <span class="c1"># Formata os dados em uma string</span>
+        <span class="n">st</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="c1">#Força continuação na próxima linha</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">st</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span> <span class="c1">#Encerra o processo de escrita dos dados</span>
+</pre></div>
+</div>
+</section>
+<section id="exercicio-1-svm">
+<h2>Exercício 1 - SVM<a class="headerlink" href="#exercicio-1-svm" title="Link to this heading">#</a></h2>
+<p>Adaptando o código acima de forma conveniente com base nos trechos de código mostrado abaixo, realize a simulação de dois conjuntos de dados rotulados <span class="math notranslate nohighlight">\(D\)</span> e <span class="math notranslate nohighlight">\(I\)</span>. Em seguida, treine o método SVM através de <span class="math notranslate nohighlight">\(D\)</span>, considerando diferentes combinações entre a penalidade <span class="math notranslate nohighlight">\(C \in {1,10,100,1000}\)</span> e as estratégias multiclasses <span class="math notranslate nohighlight">\(ovr\)</span> ou <span class="math notranslate nohighlight">\(ovo\)</span>, e avalie seu percentual de acerto na classificação de <span class="math notranslate nohighlight">\(I\)</span>. Tabele as oito configurações de parâmetros e respectivos percentuais de acertos.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy.spatial</span> <span class="kn">import</span> <span class="n">distance</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">multivariate_normal</span>
+
+<span class="c1"># Configuração da semente para manter sempre os mesmos resultados</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
+
+<span class="c1"># Conjuntos de dados - Treinamento</span>
+<span class="n">mu1</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">];</span> <span class="n">sigma1</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]];</span> <span class="n">qnt1</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">mu2</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">];</span> <span class="n">sigma2</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]];</span> <span class="n">qnt2</span> <span class="o">=</span> <span class="mi">60</span>
+<span class="n">mu3</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">];</span> <span class="n">sigma3</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]];</span> <span class="n">qnt3</span> <span class="o">=</span> <span class="mi">70</span>
+<span class="n">mu4</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">];</span> <span class="n">sigma4</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]];</span> <span class="n">qnt4</span> <span class="o">=</span> <span class="mi">80</span>
+
+<span class="c1"># Conjuntos de dados - Avaliação</span>
+<span class="n">mu1_eval</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">];</span> <span class="n">sigma1_eval</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.85</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">]];</span> <span class="n">qnt1_eval</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">mu2_eval</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">];</span> <span class="n">sigma2_eval</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.75</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.25</span><span class="p">]];</span> <span class="n">qnt2_eval</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">mu3_eval</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">];</span> <span class="n">sigma3_eval</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.75</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.75</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]];</span> <span class="n">qnt3_eval</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">mu4_eval</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">];</span> <span class="n">sigma4_eval</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">2.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">]];</span> <span class="n">qnt4_eval</span> <span class="o">=</span> <span class="mi">500</span>
+
+<span class="n">conjMu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">mu1</span><span class="p">,</span> <span class="n">mu2</span><span class="p">,</span> <span class="n">mu3</span><span class="p">,</span> <span class="n">mu4</span><span class="p">])</span>
+<span class="n">conjSigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">sigma1</span><span class="p">,</span> <span class="n">sigma2</span><span class="p">,</span> <span class="n">sigma3</span><span class="p">,</span> <span class="n">sigma4</span><span class="p">])</span>
+<span class="n">quantidades</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">qnt1</span><span class="p">,</span> <span class="n">qnt2</span><span class="p">,</span> <span class="n">qnt3</span><span class="p">,</span> <span class="n">qnt4</span><span class="p">])</span>
+<span class="n">rotulos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+
+<span class="c1"># Gerar dados de treino</span>
+<span class="n">todos_dados</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">todos_rotulos</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">conjMu</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+    <span class="n">dados</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span><span class="n">conjMu</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">conjSigma</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">quantidades</span><span class="p">[</span><span class="n">r</span><span class="p">])</span>
+    <span class="n">todos_dados</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dados</span><span class="p">)</span>
+    <span class="n">todos_rotulos</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">rotulos</span><span class="p">[</span><span class="n">r</span><span class="p">]]</span> <span class="o">*</span> <span class="n">quantidades</span><span class="p">[</span><span class="n">r</span><span class="p">])</span>
+
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">todos_dados</span><span class="p">)</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">todos_rotulos</span><span class="p">)</span>
+
+<span class="c1"># Gerar dados de avaliação</span>
+<span class="n">todos_dados_eval</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">todos_rotulos_eval</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">qnt</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="n">mu1_eval</span><span class="p">,</span> <span class="n">mu2_eval</span><span class="p">,</span> <span class="n">mu3_eval</span><span class="p">,</span> <span class="n">mu4_eval</span><span class="p">],</span> 
+                                         <span class="p">[</span><span class="n">sigma1_eval</span><span class="p">,</span> <span class="n">sigma2_eval</span><span class="p">,</span> <span class="n">sigma3_eval</span><span class="p">,</span> <span class="n">sigma4_eval</span><span class="p">],</span> 
+                                         <span class="p">[</span><span class="n">qnt1_eval</span><span class="p">,</span> <span class="n">qnt2_eval</span><span class="p">,</span> <span class="n">qnt3_eval</span><span class="p">,</span> <span class="n">qnt4_eval</span><span class="p">])):</span>
+    <span class="n">dados</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">qnt</span><span class="p">)</span>
+    <span class="n">todos_dados_eval</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dados</span><span class="p">)</span>
+    <span class="n">todos_rotulos_eval</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">rotulos</span><span class="p">[</span><span class="n">r</span><span class="p">]]</span> <span class="o">*</span> <span class="n">qnt</span><span class="p">)</span>
+
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">todos_dados_eval</span><span class="p">)</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">todos_rotulos_eval</span><span class="p">)</span>
+
+<span class="c1"># Implementação do SVM básico (sem bibliotecas de ML)</span>
+<span class="k">class</span> <span class="nc">SVM</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">C</span> <span class="o">=</span> <span class="n">C</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.001</span><span class="p">):</span>
+        <span class="n">n_samples</span><span class="p">,</span> <span class="n">n_features</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">y_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_features</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">xi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">y_</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">-=</span> <span class="n">lr</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">1</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">C</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">-=</span> <span class="n">lr</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">1</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">C</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">y_</span><span class="p">[</span><span class="n">idx</span><span class="p">]))</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">-=</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">y_</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">)</span>
+
+<span class="c1"># One-vs-Rest (OvR) SVM</span>
+<span class="k">class</span> <span class="nc">SVM_OVR</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">C</span> <span class="o">=</span> <span class="n">C</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">models</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+            <span class="n">y_bin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="n">c</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="n">SVM</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">C</span><span class="p">)</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y_bin</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">models</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span>
+
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="c1"># One-vs-One (OvO) SVM</span>
+<span class="k">class</span> <span class="nc">SVM_OVO</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">C</span> <span class="o">=</span> <span class="n">C</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">models</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="n">classes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">classes</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">classes</span><span class="p">)):</span>
+                <span class="n">idx</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="n">classes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">|</span> <span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="n">classes</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+                <span class="n">X_ij</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+                <span class="n">y_ij</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+                <span class="n">y_ij</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y_ij</span> <span class="o">==</span> <span class="n">classes</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">model</span> <span class="o">=</span> <span class="n">SVM</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">C</span><span class="p">)</span>
+                <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_ij</span><span class="p">,</span> <span class="n">y_ij</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">models</span><span class="p">[(</span><span class="n">classes</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">classes</span><span class="p">[</span><span class="n">j</span><span class="p">])]</span> <span class="o">=</span> <span class="n">model</span>
+
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="n">votes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">models</span><span class="p">)))</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">((</span><span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">),</span> <span class="n">model</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+            <span class="n">pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+            <span class="n">votes</span><span class="p">[:,</span> <span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">pred</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">votes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])])</span>
+
+<span class="c1"># Treinar e avaliar os modelos</span>
+<span class="n">ovo_model</span> <span class="o">=</span> <span class="n">SVM_OVO</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">ovo_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">ovo_predictions</span> <span class="o">=</span> <span class="n">ovo_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">ovo_acc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">ovo_predictions</span> <span class="o">==</span> <span class="n">y_test</span><span class="p">)</span>
+
+<span class="n">ovr_model</span> <span class="o">=</span> <span class="n">SVM_OVR</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">ovr_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">ovr_predictions</span> <span class="o">=</span> <span class="n">ovr_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">ovr_acc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">ovr_predictions</span> <span class="o">==</span> <span class="n">y_test</span><span class="p">)</span>
+
+<span class="c1"># Exibir resultados</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;OvO SVM Acurácia: </span><span class="si">{</span><span class="n">ovo_acc</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;OvR SVM Acurácia: </span><span class="si">{</span><span class="n">ovr_acc</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># Visualização dos dados</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_train</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">y_train</span> <span class="o">==</span> <span class="n">c</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_train</span><span class="p">[</span><span class="n">y_train</span> <span class="o">==</span> <span class="n">c</span><span class="p">][:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Classe </span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distribuição das Classes Simuladas - Treinamento&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Eixo X&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Eixo Y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div align="center"> 
+<p><img alt="figura1" src="../_images/ex1cap3.png" /> <legend>Figura 2.12 - Resultado ao executar código do exercício 1. Fonte: Elaborado pelo autor.</p>
+</legend>
+</div>
+</section>
+<section id="exercicio-2-perceptron-com-ovr">
+<h2>Exercício 2 - Perceptron com OVR<a class="headerlink" href="#exercicio-2-perceptron-com-ovr" title="Link to this heading">#</a></h2>
+<p>Implemente uma versão do algoritmo Perceptron para dados não linearmente separáveis, adapatada aos problemas de classificação multiclasses. Considere a estratégias OVR. Em seguida, utilize o conjunto de dados <span class="math notranslate nohighlight">\(D\)</span>, gerado no exercício anterior, para o treinamento do método, assim como <span class="math notranslate nohighlight">\(I\)</span> para a avaliação dos resultados. Compare os resultados obtidos com os métodos SSE e SVM (<span class="math notranslate nohighlight">\(C = 100\)</span>) utilizando a mesma estratégia multioclasses.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Função para calcular o SSE</span>
+<span class="k">def</span> <span class="nf">calculate_sse</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">y_true</span> <span class="o">-</span> <span class="n">y_pred</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Implementação do Perceptron OvR com a Estratégia One-vs-Rest</span>
+<span class="k">class</span> <span class="nc">Perceptron_OVR</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span> <span class="o">=</span> <span class="n">max_iter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lr</span> <span class="o">=</span> <span class="n">lr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">models</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+            <span class="n">y_bin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="n">c</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">xi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">y_bin</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">w</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lr</span> <span class="o">*</span> <span class="n">y_bin</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">*</span> <span class="n">xi</span>
+                        <span class="n">b</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lr</span> <span class="o">*</span> <span class="n">y_bin</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+            
+            <span class="bp">self</span><span class="o">.</span><span class="n">models</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="n">scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span> <span class="k">for</span> <span class="n">w</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="c1"># Implementação do SVM básico (sem bibliotecas de ML)</span>
+<span class="k">class</span> <span class="nc">SVM</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">C</span> <span class="o">=</span> <span class="n">C</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.001</span><span class="p">):</span>
+        <span class="n">n_samples</span><span class="p">,</span> <span class="n">n_features</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">y_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_features</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">xi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">y_</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">-=</span> <span class="n">lr</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">1</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">C</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">-=</span> <span class="n">lr</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">1</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">C</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">y_</span><span class="p">[</span><span class="n">idx</span><span class="p">]))</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">-=</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">y_</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">)</span>
+
+<span class="c1"># One-vs-Rest (OvR) SVM</span>
+<span class="k">class</span> <span class="nc">SVM_OVR</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">C</span> <span class="o">=</span> <span class="n">C</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">models</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+            <span class="n">y_bin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="n">c</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="n">SVM</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">C</span><span class="p">)</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y_bin</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">models</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span>
+
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="c1"># Gerar dados de treino e avaliação (já fornecidos no código anterior)</span>
+
+<span class="c1"># Treinamento e avaliação dos modelos</span>
+<span class="n">ovo_model</span> <span class="o">=</span> <span class="n">SVM_OVR</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">ovo_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">ovo_predictions</span> <span class="o">=</span> <span class="n">ovo_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">ovo_acc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">ovo_predictions</span> <span class="o">==</span> <span class="n">y_test</span><span class="p">)</span>
+<span class="n">ovo_sse</span> <span class="o">=</span> <span class="n">calculate_sse</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">ovo_predictions</span><span class="p">)</span>
+
+<span class="n">ovr_model</span> <span class="o">=</span> <span class="n">SVM_OVR</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">ovr_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">ovr_predictions</span> <span class="o">=</span> <span class="n">ovr_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">ovr_acc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">ovr_predictions</span> <span class="o">==</span> <span class="n">y_test</span><span class="p">)</span>
+<span class="n">ovr_sse</span> <span class="o">=</span> <span class="n">calculate_sse</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">ovr_predictions</span><span class="p">)</span>
+
+<span class="n">perceptron_model</span> <span class="o">=</span> <span class="n">Perceptron_OVR</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">perceptron_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">perceptron_predictions</span> <span class="o">=</span> <span class="n">perceptron_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">perceptron_acc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">perceptron_predictions</span> <span class="o">==</span> <span class="n">y_test</span><span class="p">)</span>
+<span class="n">perceptron_sse</span> <span class="o">=</span> <span class="n">calculate_sse</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">perceptron_predictions</span><span class="p">)</span>
+
+<span class="c1"># Exibir resultados</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;OvO SVM Acurácia: </span><span class="si">{</span><span class="n">ovo_acc</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, SSE: </span><span class="si">{</span><span class="n">ovo_sse</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;OvR SVM Acurácia: </span><span class="si">{</span><span class="n">ovr_acc</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, SSE: </span><span class="si">{</span><span class="n">ovr_sse</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Perceptron OvR Acurácia: </span><span class="si">{</span><span class="n">perceptron_acc</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, SSE: </span><span class="si">{</span><span class="n">perceptron_sse</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># Visualização dos dados</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_train</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">y_train</span> <span class="o">==</span> <span class="n">c</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_train</span><span class="p">[</span><span class="n">y_train</span> <span class="o">==</span> <span class="n">c</span><span class="p">][:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Classe </span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distribuição das Classes Simuladas - Treinamento&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Eixo X&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Eixo Y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<section id="resultados">
+<h3>Resultados<a class="headerlink" href="#resultados" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>OvO SVM Acurácia: 0.25, SSE: 7000.00</p></li>
+<li><p>OvR SVM Acurácia: 0.25, SSE: 7000.00</p></li>
+<li><p>Perceptron OvR Acurácia: 0.46, SSE: 3180.00</p></li>
+</ul>
+<div align="center"> 
+<p><img alt="figura1" src="../_images/exe2cap3.png" /> <legend>Figura 2.12 - Resultado ao executar código do exercício 1. Fonte: Elaborado pelo autor.</p>
+</legend>
+</div>
+</section>
+</section>
+<section id="exercicio-3-estrategia-multiclasses-ovr-adaptada-ao-metodo-sse">
+<h2>Exercício 3 - Estratégia multiclasses OVR adaptada ao método SSE<a class="headerlink" href="#exercicio-3-estrategia-multiclasses-ovr-adaptada-ao-metodo-sse" title="Link to this heading">#</a></h2>
+<p>Escreva comentários para as diferentes linhas de comando do código 3.5, proporcionando, assim, uma explicação sobre as etapas do algoritmo em questão.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">multiclass_ovr_sse</span><span class="p">(</span><span class="n">trainX</span><span class="p">,</span> <span class="n">trainY</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
+    <span class="c1"># Obtém o número de amostras no dataset (N)</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="c1"># Identifica os índices das classes únicas (rótulos) presentes no treinamento</span>
+    <span class="n">claIndex</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">trainY</span><span class="p">)</span>
+    
+    <span class="c1"># Cria uma matriz para armazenar os valores das funções discriminantes (discFun) para cada classe</span>
+    <span class="n">discFun</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">((</span><span class="n">claIndex</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
+    
+    <span class="c1"># Loop sobre todas as classes no conjunto de treinamento</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">claIndex</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+        <span class="c1"># Encontra as posições dos rótulos positivos (da classe atual) e negativos (de todas as outras classes)</span>
+        <span class="n">labelPos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">trainY</span> <span class="o">==</span> <span class="n">claIndex</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+        <span class="n">labelNeg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">trainY</span> <span class="o">!=</span> <span class="n">claIndex</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+        
+        <span class="c1"># Cria uma versão binária dos rótulos, onde a classe k é +1 e as outras classes são -1</span>
+        <span class="n">binY</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">trainY</span><span class="p">)</span>
+        <span class="n">binY</span><span class="p">[</span><span class="n">labelPos</span><span class="p">]</span> <span class="o">=</span> <span class="o">+</span><span class="mi">1</span>
+        <span class="n">binY</span><span class="p">[</span><span class="n">labelNeg</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        
+        <span class="c1"># Calcula os coeficientes (pesos) usando a função SSE (somatório dos erros quadráticos)</span>
+        <span class="c1"># Esse passo pode envolver treinamento de um classificador binário para cada classe</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">SSE</span><span class="p">(</span><span class="n">trainX</span><span class="p">,</span> <span class="n">binY</span><span class="p">)</span>
+        
+        <span class="c1"># Loop sobre todas as amostras do dataset</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+            <span class="c1"># Pega o vetor de características (padrão) da amostra i</span>
+            <span class="n">padrao</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span>
+            
+            <span class="c1"># Calcula o valor da função discriminante para a classe k e a amostra i</span>
+            <span class="n">discFun</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">disc_function_value</span><span class="p">(</span><span class="n">padrao</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+        
+        <span class="c1"># Inicializa o vetor yEst para armazenar as previsões finais</span>
+        <span class="n">yEst</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+        
+        <span class="c1"># Loop sobre todas as amostras para determinar a classe prevista</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+            <span class="c1"># Encontra o índice da classe com o maior valor de discriminante para a amostra i</span>
+            <span class="n">maxInd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">discFun</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">discFun</span><span class="p">[:,</span><span class="n">i</span><span class="p">]))</span>
+            
+            <span class="c1"># A classe correspondente ao maior valor é atribuída como a previsão para a amostra i</span>
+            <span class="n">yEst</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">claIndex</span><span class="p">[</span><span class="n">maxInd</span><span class="p">]</span> 
+
+    <span class="c1"># Retorna as previsões finais (yEst) para todas as amostras no dataset</span>
+    <span class="k">return</span> <span class="n">yEst</span>
+
+</pre></div>
+</div>
+</section>
+<section id="exercicio-4-metodo-sse-segundo-ovo">
+<h2>Exercício 4 - Método SSE segundo OVO<a class="headerlink" href="#exercicio-4-metodo-sse-segundo-ovo" title="Link to this heading">#</a></h2>
+<p>Implemente uma versão multiclassses do método SSE segundo a estratégia OVO.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">combinations</span>
+
+<span class="k">def</span> <span class="nf">calculate_sse</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calcula o Square of Sums Error.</span>
+<span class="sd">    </span>
+<span class="sd">    :param y_true: Array com as verdadeiros labels</span>
+<span class="sd">    :param y_pred: Array com as previsões</span>
+<span class="sd">    :return: Valor do SSE</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">y_true</span> <span class="o">-</span> <span class="n">y_pred</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">sse_one_vs_one</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Implementa a estratégia One Versus One usando SSE.</span>
+<span class="sd">    </span>
+<span class="sd">    :param X: Matriz de características</span>
+<span class="sd">    :param y: Array dos verdadeiros labels</span>
+<span class="sd">    :param num_classes: Número de classes</span>
+<span class="sd">    :return: Modelo treinado</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">num_models</span> <span class="o">=</span> <span class="n">num_classes</span> <span class="o">*</span> <span class="p">(</span><span class="n">num_classes</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+    
+    <span class="n">models</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_classes</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">):</span>
+            <span class="c1"># Separação dos dados para este par de classes</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="n">j</span><span class="p">)</span>
+            <span class="n">X_pair</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+            <span class="n">y_pair</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+            
+            <span class="c1"># Treina um modelo binário para este par de classes</span>
+            <span class="c1"># Exemplo simples: escolhe a classe maior</span>
+            <span class="n">predictions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">y_pair</span><span class="p">)</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span>  <span class="c1"># Apenas o valor mais comum</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;predictions&#39;</span><span class="p">:</span> <span class="n">predictions</span><span class="p">}</span>
+            
+            <span class="n">models</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">models</span>
+
+<span class="k">def</span> <span class="nf">predict_sse_one_vs_one</span><span class="p">(</span><span class="n">models</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Faz previsões usando os modelos treinados pela estratégia One Versus One.</span>
+<span class="sd">    </span>
+<span class="sd">    :param models: Lista de modelos treinados</span>
+<span class="sd">    :param X: Matriz de características para fazer previsões</span>
+<span class="sd">    :return: Array com as previsões finais</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">models</span><span class="p">:</span>
+        <span class="n">predictions</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">model</span><span class="p">[</span><span class="s1">&#39;predictions&#39;</span><span class="p">]]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">))</span> 
+    
+    <span class="c1"># Resolve possíveis ambíguas (quando mais de um modelo prevê a mesma classe)</span>
+    <span class="n">vote_counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span>
+    <span class="n">max_votes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">vote_counts</span><span class="p">)</span>
+    <span class="n">ambiguous_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">vote_counts</span> <span class="o">==</span> <span class="n">max_votes</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="n">final_predictions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ambiguous_indices</span><span class="p">:</span>
+        <span class="n">final_predictions</span><span class="p">[</span><span class="n">ambiguous_indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">ambiguous_indices</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">final_predictions</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>  <span class="c1"># Matriz de características aleatórias</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>  <span class="c1"># Labels aleatórias de 5 classes</span>
+
+<span class="n">num_classes</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">models</span> <span class="o">=</span> <span class="n">sse_one_vs_one</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">)</span>
+<span class="n">final_predictions</span> <span class="o">=</span> <span class="n">predict_sse_one_vs_one</span><span class="p">(</span><span class="n">models</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+
+<span class="c1"># Avaliação</span>
+<span class="n">sse_values</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_classes</span><span class="p">):</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span>
+    <span class="n">true_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+    <span class="n">predicted_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">final_predictions</span><span class="p">[</span><span class="n">mask</span><span class="p">])</span>
+    <span class="n">sse_value</span> <span class="o">=</span> <span class="n">calculate_sse</span><span class="p">(</span><span class="n">true_labels</span><span class="p">,</span> <span class="n">predicted_labels</span><span class="p">)</span>
+    <span class="n">sse_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sse_value</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;SSE para cada classe:&quot;</span><span class="p">,</span> <span class="n">sse_values</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="resultado">
+<h3>Resultado<a class="headerlink" href="#resultado" title="Link to this heading">#</a></h3>
+<p>SSE para cada classe: <span class="math notranslate nohighlight">\([676, 676, 529, 144, 169]\)</span></p>
+</section>
+</section>
+<section id="exercicio-5-ovr-e-ovo">
+<h2>Exercício 5 - OVR e OVO<a class="headerlink" href="#exercicio-5-ovr-e-ovo" title="Link to this heading">#</a></h2>
+<p>Implemente uma estratégia multiclasses distinda da OVR e OVO, seja ela uma proposta já existente na literatura, uma variante das estratégias OVR e/ou OVO ou mesmo uma abordagem distinta.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
+
+<span class="k">def</span> <span class="nf">generate_ecoc_code</span><span class="p">(</span><span class="n">num_classes</span><span class="p">,</span> <span class="n">code_length</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gera um código binário para as classes.</span>
+<span class="sd">    :param num_classes: número de classes.</span>
+<span class="sd">    :param code_length: número de bits do código.</span>
+<span class="sd">    :return: Matriz de códigos binários para as classes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">codes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">product</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">repeat</span><span class="o">=</span><span class="n">code_length</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">codes</span><span class="p">[:</span><span class="n">num_classes</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">train_ecoc_classifiers</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">codes</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Treina classificadores binários para cada bit do código ECOC.</span>
+<span class="sd">    :param X: Características de entrada.</span>
+<span class="sd">    :param y: Rótulos.</span>
+<span class="sd">    :param codes: Códigos binários para cada classe.</span>
+<span class="sd">    :return: Lista de classificadores treinados.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">classifiers</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">n_bits</span> <span class="o">=</span> <span class="n">codes</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Número de bits do código</span>
+    
+    <span class="k">for</span> <span class="n">bit</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_bits</span><span class="p">):</span>
+        <span class="c1"># Criar um vetor de rótulos binários para o bit atual</span>
+        <span class="n">y_bit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span> <span class="k">if</span> <span class="n">codes</span><span class="p">[</span><span class="n">class_id</span><span class="p">,</span> <span class="n">bit</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span> <span class="k">for</span> <span class="n">class_id</span> <span class="ow">in</span> <span class="n">y</span><span class="p">])</span>
+        
+        <span class="c1"># Treinar um classificador binário</span>
+        <span class="n">clf</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span>
+        <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y_bit</span><span class="p">)</span>
+        <span class="n">classifiers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">clf</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">classifiers</span>
+
+<span class="k">def</span> <span class="nf">predict_ecoc</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">classifiers</span><span class="p">,</span> <span class="n">codes</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Faz previsões usando a estratégia ECOC.</span>
+<span class="sd">    :param X: Dados para previsão.</span>
+<span class="sd">    :param classifiers: Classificadores binários treinados.</span>
+<span class="sd">    :param codes: Códigos binários das classes.</span>
+<span class="sd">    :return: Rótulos previstos.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n_bits</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">classifiers</span><span class="p">)</span>
+    <span class="n">predicted_codes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">n_bits</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    
+    <span class="c1"># Para cada classificador, prever o bit correspondente</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">clf</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">classifiers</span><span class="p">):</span>
+        <span class="n">predicted_codes</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    
+    <span class="c1"># Expandindo a dimensão de codes para (1, 5, 3) para compará-lo com (100, 3)</span>
+    <span class="n">codes_expanded</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">codes</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Formato: (1, 5, 3)</span>
+    <span class="n">predicted_codes_expanded</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">predicted_codes</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Formato: (100, 1, 3)</span>
+    
+    <span class="c1"># Calculando a distância de Hamming entre predicted_codes e codes</span>
+    <span class="n">distances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">predicted_codes_expanded</span> <span class="o">-</span> <span class="n">codes_expanded</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    
+    <span class="c1"># Para cada amostra, encontrar o código de classe mais próximo</span>
+    <span class="n">predicted_classes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">distances</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    
+    <span class="k">return</span> <span class="n">predicted_classes</span>
+
+<span class="c1"># Gerando dados de exemplo</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>  <span class="c1"># 100 amostras, 10 características</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>  <span class="c1"># 5 classes</span>
+
+<span class="c1"># Definindo o número de classes e o comprimento do código binário</span>
+<span class="n">num_classes</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">code_length</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># Número de bits para a codificação binária (ajustável)</span>
+
+<span class="c1"># Gerando os códigos ECOC</span>
+<span class="n">codes</span> <span class="o">=</span> <span class="n">generate_ecoc_code</span><span class="p">(</span><span class="n">num_classes</span><span class="p">,</span> <span class="n">code_length</span><span class="p">)</span>
+
+<span class="c1"># Treinando os classificadores binários ECOC</span>
+<span class="n">classifiers</span> <span class="o">=</span> <span class="n">train_ecoc_classifiers</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">codes</span><span class="p">)</span>
+
+<span class="c1"># Fazendo previsões</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">predict_ecoc</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">classifiers</span><span class="p">,</span> <span class="n">codes</span><span class="p">)</span>
+
+<span class="c1"># Avaliando a acurácia</span>
+<span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Acurácia da classificação ECOC: </span><span class="si">{</span><span class="n">accuracy</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="id1">
+<h3>Resultados<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>Acurácia da classificação ECOC: 23.00%</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Chapter_2"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="2_4_estrategiasMulticlasse.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">2.5 Estratétegias Multiclasse</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../Chapter_3/3_0_classificadoresNaoLineares.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Capítulo 3: Classificadores não lineares</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#codigo-de-referencia-para-resolver-os-exercicios">Código de referência para resolver os exercícios.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercicio-1-svm">Exercício 1 - SVM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercicio-2-perceptron-com-ovr">Exercício 2 - Perceptron com OVR</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resultados">Resultados</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercicio-3-estrategia-multiclasses-ovr-adaptada-ao-metodo-sse">Exercício 3 - Estratégia multiclasses OVR adaptada ao método SSE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercicio-4-metodo-sse-segundo-ovo">Exercício 4 - Método SSE segundo OVO</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resultado">Resultado</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercicio-5-ovr-e-ovo">Exercício 5 - OVR e OVO</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Resultados</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kamilla Taiwhscki
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
